@@ -39,14 +39,14 @@
 
     <!-- Top Announcement & Quick Contact Bar -->
     <div class="top-contact-bar">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-            <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <div class="top-bar-address" style="display: flex; gap: 20px; flex-wrap: wrap;">
                 <span><i class="fa-solid fa-location-dot" style="color:var(--red-z); margin-right: 6px;"></i> 75B Green Avenue, Near Broadway Commercial, DHA Phase 8, Lahore</span>
-                <span><i class="fa-solid fa-clock" style="color:var(--red-z); margin-right: 6px;"></i> Mon - Sat: 10:00 AM - 08:00 PM</span>
+                <span class="top-bar-hours"><i class="fa-solid fa-clock" style="color:var(--red-z); margin-right: 6px;"></i> Mon - Sat: 10:00 AM - 08:00 PM</span>
             </div>
-            <div style="display: flex; gap: 24px; align-items: center;">
-                <a href="tel:{{ config.PHONE }}" style="color: #ffffff; font-weight: 600;"><i class="fa-solid fa-phone" style="color:var(--red-z); margin-right: 6px;"></i> Call Us: {{ config.PHONE }}</a>
-                <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}" target="_blank" rel="noopener" style="color: #25d366; font-weight: 600;"><i class="fa-brands fa-whatsapp" style="margin-right: 6px;"></i> WhatsApp Direct</a>
+            <div style="display: flex; gap: 16px; align-items: center;">
+                <a href="tel:{{ config.PHONE }}" style="color: #ffffff; font-weight: 600;"><i class="fa-solid fa-phone" style="color:var(--red-z); margin-right: 6px;"></i> <span class="top-bar-call-text">Call Us: </span>{{ config.PHONE }}</a>
+                <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}" target="_blank" rel="noopener" style="color: #25d366; font-weight: 600;"><i class="fa-brands fa-whatsapp" style="margin-right: 6px;"></i> WhatsApp</a>
             </div>
         </div>
     </div>

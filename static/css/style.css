@@ -124,6 +124,12 @@ img {
     z-index: 1001;
 }
 
+@media (max-width: 640px) {
+    .top-bar-address { display: none !important; }
+    .top-bar-call-text { display: none; }
+    .top-contact-bar { padding: 8px 0; font-size: 0.8rem; }
+}
+
 /* Glassmorphism utility */
 .glass-panel {
     background: var(--bg-card);
@@ -1029,11 +1035,34 @@ img {
     gap: 16px;
 }
 
-/* Responsive Media Queries */
+/* ─── Responsive CSS Grid Classes ─── */
+
+.quiz-options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.cfg-car-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.cfg-goals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.cfg-main-grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr;
+    gap: 28px;
+}
+
+/* ─── Tablet (≤ 992px) ─── */
 @media (max-width: 992px) {
-    .hero-title { font-size: 3rem; }
-    .hero-bg-image { width: 100%; opacity: 0.2; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
     .nav-links {
         position: fixed;
         top: 0; right: -100%;
@@ -1044,14 +1073,84 @@ img {
         padding: 40px;
         transition: right 0.4s ease;
         box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+        z-index: 1000;
+        gap: 20px;
     }
     .nav-links.active { right: 0; }
     .mobile-toggle { display: block; z-index: 1001; }
+    .hero-title { font-size: 3rem; }
+    .hero-bg-image { width: 100%; opacity: 0.2; }
+    .hero-bg-container { width: 100%; }
+    .section { padding: 60px 0; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    .cfg-car-grid { grid-template-columns: repeat(2, 1fr); }
+    .cfg-main-grid { grid-template-columns: 1fr; }
+    .cfg-goals-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 576px) {
-    .hero-title { font-size: 2.2rem; }
-    .section-title { font-size: 2rem; }
-    .footer-grid { grid-template-columns: 1fr; }
+/* ─── Phone (≤ 640px) ─── */
+@media (max-width: 640px) {
+    html { font-size: 15px; }
+
+    .site-header { padding: 14px 0; }
+    .brand-logo-text { font-size: 1.3rem; }
+    .brand-logo-img { height: 36px; }
+    .brand-logo { margin-right: 0; gap: 8px; }
+    .nav-container { padding: 0 16px; }
+
+    .glass-panel { padding: 20px 16px !important; }
+
+    .hero-section { padding: 100px 0 60px; min-height: auto; }
+    .hero-title { font-size: 2rem; line-height: 1.15; }
+    .hero-bg-image { opacity: 0.1; }
+
+    .section-title { font-size: 1.75rem; }
+    .section-desc { font-size: 0.9rem; }
+
+    .btn-primary, .btn-outline {
+        padding: 12px 20px;
+        font-size: 0.85rem;
+        width: 100%;
+        justify-content: center;
+    }
+
     .grid-3, .grid-2 { grid-template-columns: 1fr; }
+
+    /* Quiz */
+    #protection-quiz-container { padding: 20px 16px; }
+    .quiz-options-grid { grid-template-columns: 1fr; gap: 10px; }
+    .quiz-option { padding: 14px; }
+    #quiz-nav-controls { flex-wrap: wrap; gap: 10px; }
+    #quiz-prev-btn, #quiz-next-btn { width: 100% !important; justify-content: center; }
+    #rec-title { font-size: 1.4rem; }
+    #rec-price { font-size: 1.6rem; }
+
+    /* Package builder */
+    #package-builder-container { padding: 20px 16px; }
+    .cfg-car-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .cfg-car-grid label { padding: 12px 6px; }
+    .cfg-goals-grid { grid-template-columns: 1fr; gap: 10px; }
+    .cfg-main-grid { grid-template-columns: 1fr; gap: 20px; }
+
+    /* Before/After slider */
+    .ba-wrapper { height: 260px; }
+
+    /* Comparison table */
+    .comparison-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .comparison-table th, .comparison-table td { padding: 10px 12px; font-size: 0.85rem; }
+
+    /* Footer */
+    .site-footer { padding: 48px 0 24px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+
+    /* Floating WhatsApp */
+    .whatsapp-float { width: 52px; height: 52px; font-size: 1.6rem; bottom: 20px; right: 16px; }
+
+    /* Forms */
+    .form-control, .form-select { padding: 12px 14px; font-size: 0.95rem; }
+
+    /* Hide custom cursor on touch devices */
+    .custom-cursor, .custom-cursor-follower { display: none; }
 }
+

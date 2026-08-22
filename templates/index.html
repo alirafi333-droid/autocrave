@@ -256,8 +256,8 @@
 
             <!-- Step 1 — Vehicle Body Types -->
             <div class="quiz-step" data-step="1">
-                <h3 style="font-size:1.3rem; margin-bottom:20px;">1. Select your vehicle category:</h3>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <h3 style="font-size:1.25rem; margin-bottom:16px;">1. Select your vehicle category:</h3>
+                <div class="quiz-options-grid">
                     <div class="quiz-option" data-value="hatchback">
                         <i class="fa-solid fa-car" style="color:var(--red-z); margin-bottom:6px; font-size:1.3rem;"></i><br>
                         <strong>Hatchback</strong><br>
@@ -299,8 +299,8 @@
 
             <!-- Step 2 -->
             <div class="quiz-step" data-step="2" style="display:none;">
-                <h3 style="font-size:1.3rem; margin-bottom:20px;">2. How often do you drive the vehicle?</h3>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <h3 style="font-size:1.25rem; margin-bottom:16px;">2. How often do you drive the vehicle?</h3>
+                <div class="quiz-options-grid">
                     <div class="quiz-option" data-value="daily">
                         <i class="fa-solid fa-road" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
                         <strong>Daily Commuter</strong><br>
@@ -326,8 +326,8 @@
 
             <!-- Step 3 -->
             <div class="quiz-step" data-step="3" style="display:none;">
-                <h3 style="font-size:1.3rem; margin-bottom:20px;">3. Where is the vehicle parked?</h3>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <h3 style="font-size:1.25rem; margin-bottom:16px;">3. Where is the vehicle parked?</h3>
+                <div class="quiz-options-grid">
                     <div class="quiz-option" data-value="indoors">
                         <i class="fa-solid fa-building-shield" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
                         <strong>Indoor Garage</strong><br>
@@ -348,8 +348,8 @@
 
             <!-- Step 4 -->
             <div class="quiz-step" data-step="4" style="display:none;">
-                <h3 style="font-size:1.3rem; margin-bottom:20px;">4. Your biggest paint protection priority?</h3>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <h3 style="font-size:1.25rem; margin-bottom:16px;">4. Your biggest paint protection priority?</h3>
+                <div class="quiz-options-grid">
                     <div class="quiz-option" data-value="chips">
                         <i class="fa-solid fa-shield-halved" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
                         <strong>Stone Chips & Deep Scratches</strong><br>
@@ -431,7 +431,7 @@
                     <span style="background:var(--red-z); color:#fff; width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.75rem;">1</span>
                     SELECT YOUR CAR TYPE
                 </h4>
-                <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px;" id="cfg-car-type-group">
+                <div class="cfg-car-grid" id="cfg-car-type-group">
                     <label id="car-label-hatchback" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; background:rgba(255,30,39,0.12); padding:16px 10px; border-radius:8px; border:2px solid var(--red-z); cursor:pointer; text-align:center; transition:all 0.2s;">
                         <input type="radio" name="cfg_car" value="hatchback" checked style="display:none;">
                         <i class="fa-solid fa-car" style="font-size:1.5rem; color:var(--red-z);"></i>
@@ -465,7 +465,7 @@
                     <span style="background:var(--red-z); color:#fff; width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.75rem;">2</span>
                     WHAT DO YOU WANT TO DO WITH YOUR CAR? (CHOOSE A PACKAGE GOAL)
                 </h4>
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;" id="cfg-goal-presets">
+                <div class="cfg-goals-grid" id="cfg-goal-presets">
                     
                     <div class="cfg-goal-card selected" data-goal="gloss_suite" style="background:rgba(255,30,39,0.1); border:1.5px solid var(--red-z); padding:16px; border-radius:8px; cursor:pointer; transition:all 0.2s;">
                         <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
@@ -537,7 +537,7 @@
             </div>
 
             <!-- STEP 2: MODULE CUSTOMIZATION -->
-            <div style="display:grid; grid-template-columns:1.8fr 1.2fr; gap:28px;">
+            <div class="cfg-main-grid">
                 <div>
                     <h4 style="font-size:1.05rem; color:var(--red-z); margin-bottom:12px; border-bottom:1px solid var(--border-color); padding-bottom:8px; display:flex; align-items:center; gap:8px;">
                         <span style="background:var(--red-z); color:#fff; width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.75rem;">3</span>

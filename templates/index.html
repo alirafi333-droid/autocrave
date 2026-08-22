@@ -665,26 +665,40 @@
      ═══════════════════════════════════════════════════════════════════ -->
 <section class="section" style="background:var(--bg-surface); border-y:1px solid var(--border-color);">
     <div class="container">
-        <div class="glass-panel" style="padding:40px;">
-            <div class="grid-2" style="align-items:center;">
+        <div class="glass-panel location-panel">
+            <div class="location-grid">
+                <!-- Left: Text & details -->
                 <div>
                     <span class="section-tag">FLAGSHIP STUDIO LOCATION</span>
-                    <h2 style="font-size:2.2rem; margin-bottom:16px;">VISIT AUTOZCRAVESTUDIO</h2>
-                    <p style="color:var(--text-muted); font-size:1.05rem; margin-bottom:24px;">75B Green Avenue, Near Broadway Commercial, DHA Phase 8, Lahore, Pakistan. Drop in for a free paint inspection — available on Google Maps.</p>
+                    <h2 style="font-size:2rem; margin:12px 0 14px; line-height:1.2;">VISIT AUTOZCRAVESTUDIO</h2>
+                    <p style="color:var(--text-muted); font-size:1rem; margin-bottom:20px; line-height:1.6;">
+                        75B Green Avenue, Near Broadway Commercial, DHA Phase 8, Lahore, Pakistan. Drop in for a free paint inspection — available on Google Maps.
+                    </p>
                     <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
-                        <div><i class="fa-solid fa-location-dot" style="color:var(--red-z); margin-right:8px;"></i> {{ config.ADDRESS }}</div>
-                        <div><i class="fa-solid fa-phone" style="color:var(--red-z); margin-right:8px;"></i><a href="tel:{{ config.PHONE }}" style="color:#fff;">{{ config.PHONE }}</a></div>
-                        <div><i class="fa-solid fa-clock" style="color:var(--red-z); margin-right:8px;"></i> {{ config.WORKING_HOURS }}</div>
+                        <div style="display:flex; align-items:flex-start; gap:8px; word-break:break-word;">
+                            <i class="fa-solid fa-location-dot" style="color:var(--red-z); margin-top:3px; flex-shrink:0;"></i>
+                            <span>{{ config.ADDRESS }}</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <i class="fa-solid fa-phone" style="color:var(--red-z); flex-shrink:0;"></i>
+                            <a href="tel:{{ config.PHONE }}" style="color:#fff;">{{ config.PHONE }}</a>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <i class="fa-solid fa-clock" style="color:var(--red-z); flex-shrink:0;"></i>
+                            <span>{{ config.WORKING_HOURS }}</span>
+                        </div>
                     </div>
-                    <a href="https://maps.google.com/?q=Autozcravestudio+75b+green+avenue+near+broadway+commercial+dha+phase+8+Lahore" target="_blank" rel="noopener" class="btn-primary">
+                    <a href="https://maps.google.com/?q=Autozcravestudio+75b+green+avenue+near+broadway+commercial+dha+phase+8+Lahore" target="_blank" rel="noopener" class="btn-primary" style="max-width:280px;">
                         <i class="fa-solid fa-diamond-turn-right"></i> VIEW ON GOOGLE MAPS
                     </a>
                 </div>
+
+                <!-- Right: Studio card -->
                 <div style="background:rgba(10,11,14,0.8); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:30px; text-align:center;">
-                    <i class="fa-solid fa-map-location-dot" style="font-size:4rem; color:var(--red-z); margin-bottom:16px;"></i>
+                    <i class="fa-solid fa-map-location-dot" style="font-size:4rem; color:var(--red-z); margin-bottom:16px; display:block;"></i>
                     <h3 style="font-size:1.4rem; color:#fff; margin-bottom:8px;">DHA PHASE 8 STUDIO</h3>
                     <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">Mon – Sat, 10 AM – 8 PM</p>
-                    <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}" target="_blank" rel="noopener" class="btn-primary" style="background:#25d366; border:none; width:100%;">
+                    <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}" target="_blank" rel="noopener" class="btn-primary" style="background:#25d366; border:none; width:100%; box-sizing:border-box;">
                         <i class="fa-brands fa-whatsapp"></i> BOOK INSPECTION SLOT
                     </a>
                 </div>
@@ -692,6 +706,7 @@
         </div>
     </div>
 </section>
+
 
 {% endblock %}
 

@@ -1067,6 +1067,32 @@ img {
 
 /* ─── Responsive CSS Grid Classes ─── */
 
+/* Location section */
+.location-panel {
+    padding: 40px;
+}
+
+.location-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .location-panel { padding: 24px 20px; }
+    .location-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    .location-grid h2 { font-size: 1.6rem !important; }
+}
+
+@media (max-width: 640px) {
+    .location-panel { padding: 20px 16px; }
+    .location-grid h2 { font-size: 1.4rem !important; }
+}
+
 .quiz-options-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;

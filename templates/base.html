@@ -78,14 +78,14 @@
     </header>
 
     <!-- Flash Messages Container -->
-    <div style="position: fixed; top: 90px; right: 24px; z-index: 1100; max-width: 420px; width: 100%;">
+    <div class="flash-container">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="alert-dismissible glass-panel" style="padding: 16px 20px; margin-bottom: 12px; border-left: 4px solid {% if category == 'error' %}#ff1e27{% elif category == 'success' %}#10b981{% else %}#3b82f6{% endif %}; transition: opacity 0.3s ease;">
-                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                            <span style="font-size: 0.95rem; font-weight: 500;">{{ message }}</span>
-                            <button onclick="this.parentElement.parentElement.remove()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:1.2rem;">&times;</button>
+                    <div class="alert-dismissible glass-panel flash-alert" style="border-left: 4px solid {% if category == 'error' %}#ff1e27{% elif category == 'success' %}#10b981{% else %}#3b82f6{% endif %};">
+                        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+                            <span style="font-size: 0.9rem; font-weight: 500; line-height: 1.5; word-break: break-word; flex: 1;">{{ message }}</span>
+                            <button onclick="this.parentElement.parentElement.remove()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:1.2rem; flex-shrink:0; line-height:1;">&times;</button>
                         </div>
                     </div>
                 {% endfor %}

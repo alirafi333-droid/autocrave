@@ -130,6 +130,36 @@ img {
     .top-contact-bar { padding: 8px 0; font-size: 0.8rem; }
 }
 
+/* Flash Messages */
+.flash-container {
+    position: fixed;
+    top: 90px;
+    right: 24px;
+    z-index: 1100;
+    max-width: 420px;
+    width: calc(100% - 48px);
+}
+
+.flash-alert {
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+}
+
+@media (max-width: 640px) {
+    .flash-container {
+        top: 72px;
+        right: 12px;
+        left: 12px;
+        width: auto;
+        max-width: 100%;
+    }
+    .flash-alert {
+        padding: 12px 14px;
+    }
+}
+
 /* Glassmorphism utility */
 .glass-panel {
     background: var(--bg-card);

@@ -1227,6 +1227,18 @@ img {
     .cfg-car-grid { grid-template-columns: repeat(2, 1fr); }
     .cfg-main-grid { grid-template-columns: 1fr; }
     .cfg-goals-grid { grid-template-columns: repeat(2, 1fr); }
+    /* Hide hero scroll hint on tablet & phone so it never overlaps buttons */
+    #hero-scroll-hint { display: none !important; }
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-outline {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /* ─── Phone (≤ 640px) ─── */
@@ -1241,9 +1253,10 @@ img {
 
     .glass-panel { padding: 20px 16px !important; }
 
-    .hero-section { padding: 100px 0 60px; min-height: auto; }
+    .hero-section { padding: 90px 0 50px; min-height: auto; }
     .hero-title { font-size: 2rem; line-height: 1.15; }
     .hero-bg-image { opacity: 0.1; }
+    #hero-scroll-hint { display: none !important; }
 
     .section-title { font-size: 1.75rem; }
     .section-desc { font-size: 0.9rem; }

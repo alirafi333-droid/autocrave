@@ -942,6 +942,91 @@ img {
 .ba-badge-before { left: 20px; color: #ff5252; }
 .ba-badge-after { right: 20px; color: #4caf50; }
 
+/* ── Before/After Slider responsive classes ── */
+.ba-slider-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 720 / 639;
+    max-height: 640px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    border: 1px solid var(--border-color);
+    cursor: ew-resize;
+    user-select: none;
+    touch-action: none;
+}
+
+/* BEFORE / AFTER corner labels */
+.ba-label {
+    position: absolute;
+    top: 16px;
+    z-index: 5;
+    color: #fff;
+    padding: 5px 14px;
+    border-radius: 4px;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    backdrop-filter: blur(6px);
+    pointer-events: none;
+}
+.ba-label-before { left: 14px; background: rgba(239,68,68,0.9); }
+.ba-label-after  { right: 14px; background: rgba(16,185,129,0.9); }
+
+/* Descriptor bullet lists inside slider */
+.ba-descriptors {
+    position: absolute;
+    bottom: 16px;
+    z-index: 5;
+    pointer-events: none;
+}
+.ba-descriptors-before { left: 14px; }
+.ba-descriptors-after  { right: 14px; text-align: right; }
+
+/* CTA row below slider */
+.ba-cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.ba-cta-btn {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ── Phone overrides ── */
+@media (max-width: 640px) {
+    .ba-slider-container {
+        aspect-ratio: 4 / 3;
+        max-height: 280px;
+        border-radius: 8px;
+    }
+    /* Labels: smaller, closer to edges */
+    .ba-label {
+        font-size: 0.65rem;
+        padding: 3px 9px;
+        letter-spacing: 1px;
+        top: 10px;
+    }
+    .ba-label-before { left: 8px; }
+    .ba-label-after  { right: 8px; }
+
+    /* Hide descriptor bullet lists on phone — too cluttered */
+    .ba-descriptors { display: none; }
+
+    /* CTA row stacks vertically */
+    .ba-cta-row { flex-direction: column; align-items: flex-start; }
+    .ba-cta-btn { width: 100%; justify-content: center; font-size: 0.9rem; padding: 12px; }
+}
+
+
 /* Booking Wizard Form */
 .booking-form {
     display: flex;

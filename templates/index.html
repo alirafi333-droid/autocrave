@@ -82,9 +82,9 @@
 
         <!-- Cinematic Slider -->
         <div style="max-width:860px; margin:0 auto;">
-            <div id="ba-container" style="position:relative; width:100%; aspect-ratio:720/639; max-height:640px; border-radius: var(--radius-md); overflow:hidden; box-shadow:0 30px 60px rgba(0,0,0,0.8); border:1px solid var(--border-color); cursor:ew-resize; user-select:none; touch-action:none;" >
+            <div id="ba-container" class="ba-slider-container">
 
-                <!-- AFTER image (bottom layer, exact 1:1 fit) -->
+                <!-- AFTER image (bottom layer) -->
                 <div id="ba-after" style="position:absolute; inset:0; width:100%; height:100%; overflow:hidden;">
                     <img src="{{ url_for('static', filename='images/after_bmw.jpg') }}"
                          alt="After — AutozCraveStudio Mirror Gloss Finish"
@@ -92,22 +92,20 @@
                          style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;">
 
                     <!-- AFTER label -->
-                    <div style="position:absolute; top:20px; right:20px; z-index:5; background:rgba(16,185,129,0.9); color:#fff; padding:6px 16px; border-radius:4px; font-family:var(--font-heading); font-size:0.85rem; font-weight:800; letter-spacing:2px; backdrop-filter:blur(6px); pointer-events:none;">
-                        ✓ AFTER
-                    </div>
+                    <div class="ba-label ba-label-after">✓ AFTER</div>
 
-                    <!-- After state descriptors -->
-                    <div style="position:absolute; bottom:20px; right:20px; z-index:5; text-align:right; pointer-events:none;">
-                        <div style="color:#10b981; font-size:0.8rem; font-weight:700; text-transform:uppercase; line-height:1.7;">
+                    <!-- After state descriptors — hidden on phone -->
+                    <div class="ba-descriptors ba-descriptors-after">
+                        <div style="color:#10b981; font-size:0.75rem; font-weight:700; text-transform:uppercase; line-height:1.8;">
                             <div>✦ Deep Mirror Gloss</div>
                             <div>✦ Crystal Clear Reflections</div>
                             <div>✦ Hydrophobic Surface</div>
                         </div>
-                        <div style="margin-top:6px; background:rgba(0,0,0,0.75); padding:6px 12px; border-radius:4px; font-size:0.75rem; color:#fff; font-weight:600;">PAINT CORRECTION + CERAMIC COATING</div>
+                        <div style="margin-top:6px; background:rgba(0,0,0,0.75); padding:5px 10px; border-radius:4px; font-size:0.7rem; color:#fff; font-weight:600;">PAINT CORRECTION + CERAMIC COATING</div>
                     </div>
                 </div>
 
-                <!-- BEFORE overlay (top layer with clip-path inset, exact 1:1 fit) -->
+                <!-- BEFORE overlay (top layer with clip-path) -->
                 <div id="ba-before" style="position:absolute; inset:0; width:100%; height:100%; overflow:hidden; clip-path: inset(0 50% 0 0); pointer-events:none;">
                     <img src="{{ url_for('static', filename='images/before_bmw.jpg') }}"
                          alt="Before — Dull paint condition before detailing"
@@ -115,13 +113,11 @@
                          style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
 
                     <!-- BEFORE label -->
-                    <div style="position:absolute; top:20px; left:20px; z-index:5; background:rgba(239,68,68,0.9); color:#fff; padding:6px 16px; border-radius:4px; font-family:var(--font-heading); font-size:0.85rem; font-weight:800; letter-spacing:2px; backdrop-filter:blur(6px);">
-                        ✗ BEFORE
-                    </div>
+                    <div class="ba-label ba-label-before">✗ BEFORE</div>
 
-                    <!-- Before state descriptors -->
-                    <div style="position:absolute; bottom:20px; left:20px; z-index:5;">
-                        <div style="color:#ef4444; font-size:0.8rem; font-weight:700; text-transform:uppercase; line-height:1.7;">
+                    <!-- Before state descriptors — hidden on phone -->
+                    <div class="ba-descriptors ba-descriptors-before">
+                        <div style="color:#ef4444; font-size:0.75rem; font-weight:700; text-transform:uppercase; line-height:1.8;">
                             <div>✗ Dull Paint & Contamination</div>
                             <div>✗ Swirl Marks & Scratches</div>
                             <div>✗ Unprotected Surface</div>
@@ -131,19 +127,19 @@
 
                 <!-- Divider line & drag handle -->
                 <div id="ba-divider" style="position:absolute; top:0; bottom:0; left:50%; width:3px; background:var(--red-z); box-shadow:0 0 20px var(--red-glow), 0 0 40px var(--red-glow); z-index:20; transform:translateX(-50%); pointer-events:none;">
-                    <div id="ba-handle" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:48px; height:48px; background:var(--red-z); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 0 20px var(--red-glow); font-size:1.1rem; color:#fff; cursor:ew-resize; pointer-events:auto; transition: transform 0.15s ease;">
+                    <div id="ba-handle" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:44px; height:44px; background:var(--red-z); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 0 20px var(--red-glow); font-size:1rem; color:#fff; cursor:ew-resize; pointer-events:auto; transition: transform 0.15s ease;">
                         <i class="fa-solid fa-left-right"></i>
                     </div>
                 </div>
             </div>
 
             <!-- Below slider CTA -->
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:24px; flex-wrap:wrap; gap:12px;">
-                <p style="color:var(--text-muted); font-size:0.9rem; margin:0;">
+            <div class="ba-cta-row">
+                <p style="color:var(--text-muted); font-size:0.9rem; margin:0; flex:1;">
                     <i class="fa-solid fa-circle-info" style="color:var(--red-z); margin-right:6px;"></i>
                     Send us your car photos on WhatsApp — we'll show you the transformation potential.
                 </p>
-                <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}?text=Hi%20AutozCraveStudio!%20I%20want%20to%20see%20a%20before%20and%20after%20estimate%20for%20my%20car." target="_blank" rel="noopener" class="btn-primary" style="background:#25d366; border:none; padding:10px 20px; font-size:0.85rem;">
+                <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}?text=Hi%20AutozCraveStudio!%20I%20want%20to%20see%20a%20before%20and%20after%20estimate%20for%20my%20car." target="_blank" rel="noopener" class="btn-primary ba-cta-btn" style="background:#25d366; border:none;">
                     <i class="fa-brands fa-whatsapp"></i> SEE YOUR CAR TRANSFORMED
                 </a>
             </div>

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Work Gallery | AutozCraveStudio Portfolio{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section style="padding: 140px 0 60px 0; background: radial-gradient(circle at 50% 0%, rgba(255, 30, 39, 0.15) 0%, transparent 70%), var(--bg-dark); border-bottom: 1px solid var(--border-color); text-align: center;">
+    <div class="container">
+        <span class="section-tag">EXCELLENCE IN EVERY DETAIL</span>
+        <h1 class="section-title">OUR PORTFOLIO GALLERY</h1>
+        <p class="section-desc" style="max-width: 680px; margin: 0 auto;">
+            Browse our showcase of completed exotic, luxury, and sports vehicles treated at AutozCraveStudio DHA Lahore.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <!-- Filter Tabs -->
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="ALL">ALL WORK</button>
+            <button class="filter-btn" data-filter="Ceramic Coating">CERAMIC</button>
+            <button class="filter-btn" data-filter="Glass Coating">GLASS</button>
+            <button class="filter-btn" data-filter="Graphene Coating">GRAPHENE</button>
+            <button class="filter-btn" data-filter="PPF">PPF</button>
+            <button class="filter-btn" data-filter="Deep Detailing">DETAILING</button>
+        </div>
+
+        <!-- Gallery Masonry Grid -->
+        <div class="gallery-grid">
+            {% for item in gallery_items %}
+            <div class="gallery-item" data-category="{{ item.category }}">
+                <img src="{{ url_for('static', filename=item.image_path) }}" alt="{{ item.title }}">
+                <div class="gallery-overlay">
+                    <span class="gallery-category">{{ item.category }}</span>
+                    <h4 class="gallery-title">{{ item.title }}</h4>
+                    {% if item.description %}
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">{{ item.description }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 0; color: var(--text-muted);">
+                <h3>No gallery items available yet.</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
+{% endblock %}

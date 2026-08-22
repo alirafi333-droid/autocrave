@@ -1,0 +1,94 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Before & After Projects | AutozCraveStudio Admin{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+    <div>
+        <h1 class="admin-page-title">BEFORE & AFTER PROJECT MANAGER</h1>
+        <p style="color: var(--admin-muted); font-size: 0.95rem;">Upload pair of before/after photos for interactive slider comparison</p>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 32px;">
+    <!-- Upload Before & After Pair Form -->
+    <div class="admin-card-box">
+        <h3 style="font-size: 1.2rem; margin-bottom: 20px;">CREATE COMPARISON PROJECT</h3>
+        
+        <form action="{{ url_for('admin.before_after') }}" method="POST" enctype="multipart/form-data" class="booking-form">
+            <div class="form-group">
+                <label class="form-label">Project Title *</label>
+                <input type="text" name="title" class="form-control" placeholder="e.g. Swirl & Hologram Correction" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Service Category *</label>
+                <select name="service_category" class="form-select" required>
+                    {% for c in categories %}
+                    <option value="{{ c }}">{{ c }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" style="color: #ef4444;">1. BEFORE IMAGE * (Raw / Damaged / Scratched)</label>
+                <input type="file" name="before_image" class="form-control" accept="image/*" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" style="color: #10b981;">2. AFTER IMAGE * (Restored / Ceramic Coating)</label>
+                <input type="file" name="after_image" class="form-control" accept="image/*" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea name="description" class="form-control" rows="3" placeholder="Explain paint correction stages performed..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%;">
+                <i class="fa-solid fa-layer-group"></i> PUBLISH BEFORE & AFTER
+            </button>
+        </form>
+    </div>
+
+    <!-- Projects List -->
+    <div>
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+            {% for project in projects %}
+            <div class="admin-card-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <div>
+                        <span class="badge badge-confirmed">{{ project.service_category }}</span>
+                        <h3 style="font-size: 1.2rem; margin-top: 4px;">{{ project.title }}</h3>
+                    </div>
+                    <form action="{{ url_for('admin.delete_before_after', project_id=project.id) }}" method="POST" onsubmit="return confirm('Delete this comparison project?');">
+                        <button type="submit" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.1rem;">
+                            <i class="fa-solid fa-trash-can"></i> Delete
+                        </button>
+                    </form>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                    <div>
+                        <div style="font-size: 0.75rem; color: #ef4444; font-weight: 700; margin-bottom: 4px;">BEFORE IMAGE</div>
+                        <img src="{{ url_for('static', filename=project.before_image) }}" alt="BEFORE" style="width: 100%; height: 140px; object-fit: cover; border-radius: 6px; border: 1px solid rgba(239, 68, 68, 0.3);">
+                    </div>
+                    <div>
+                        <div style="font-size: 0.75rem; color: #10b981; font-weight: 700; margin-bottom: 4px;">AFTER IMAGE</div>
+                        <img src="{{ url_for('static', filename=project.after_image) }}" alt="AFTER" style="width: 100%; height: 140px; object-fit: cover; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                    </div>
+                </div>
+
+                {% if project.description %}
+                <p style="font-size: 0.85rem; color: var(--admin-muted);">{{ project.description }}</p>
+                {% endif %}
+            </div>
+            {% else %}
+            <div class="admin-card-box" style="text-align: center; color: var(--admin-muted); padding: 40px;">
+                No comparison projects published yet.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

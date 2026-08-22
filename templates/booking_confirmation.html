@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Booking Confirmation | AutozCraveStudio{% endblock %}
+
+{% block content %}
+<section style="padding: 160px 0 100px 0; background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.15) 0%, transparent 70%), var(--bg-dark); min-height: 80vh;">
+    <div class="container" style="max-width: 720px;">
+        <div class="glass-panel" style="padding: 48px; text-align: center; border-top: 4px solid #10b981;">
+            
+            <div style="width: 80px; height: 80px; background: rgba(16, 185, 129, 0.15); border: 2px solid #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px auto; color: #10b981; font-size: 2.5rem; box-shadow: 0 0 24px rgba(16, 185, 129, 0.3);">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <h1 style="font-size: 2.2rem; text-transform: uppercase; font-weight: 800; margin-bottom: 8px; color: #ffffff;">
+                BOOKING REQUEST RECEIVED.
+            </h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 32px;">
+                Thank you for choosing AutozCraveStudio DHA Lahore. Your reservation request has been registered in our system.
+            </p>
+
+            <!-- Reference Badge -->
+            <div style="background: rgba(255, 30, 39, 0.12); border: 1px dashed var(--red-z); padding: 16px 24px; border-radius: 10px; display: inline-block; margin-bottom: 36px;">
+                <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted);">BOOKING REFERENCE NUMBER</div>
+                <div style="font-family: var(--font-heading); font-size: 2rem; font-weight: 800; color: var(--red-z); letter-spacing: 2px; margin-top: 4px;">
+                    {{ booking.reference_code }}
+                </div>
+            </div>
+
+            <!-- Booking Summary Details Card -->
+            <div style="background: rgba(10, 11, 14, 0.6); border: 1px solid var(--border-color); border-radius: 12px; padding: 28px; text-align: left; margin-bottom: 36px;">
+                <h3 style="font-size: 1.1rem; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid var(--border-color); padding-bottom: 12px; margin-bottom: 20px;">
+                    RESERVATION SUMMARY
+                </h3>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 0.95rem;">
+                    <div>
+                        <span style="color: var(--text-subtle); display: block; font-size: 0.8rem; text-transform: uppercase;">Customer Name</span>
+                        <strong style="color: #ffffff;">{{ booking.customer_name }}</strong>
+                    </div>
+                    <div>
+                        <span style="color: var(--text-subtle); display: block; font-size: 0.8rem; text-transform: uppercase;">Contact Phone</span>
+                        <strong style="color: #ffffff;">{{ booking.customer_phone }}</strong>
+                    </div>
+
+                    <div>
+                        <span style="color: var(--text-subtle); display: block; font-size: 0.8rem; text-transform: uppercase;">Selected Service</span>
+                        <strong style="color: var(--red-z);">{{ booking.service.name }}</strong>
+                    </div>
+                    <div>
+                        <span style="color: var(--text-subtle); display: block; font-size: 0.8rem; text-transform: uppercase;">Vehicle</span>
+                        <strong style="color: #ffffff;">{{ booking.vehicle_year }} {{ booking.vehicle_make }} {{ booking.vehicle_model }}</strong>
+                    </div>
+
+                    <div>
+                        <span style="color: var(--text-subtle); display: block; font-size: 0.8rem; text-transform: uppercase;">Requested Date</span>
+                        <strong style="color: #ffffff;">{{ booking.preferred_date }}</strong>
+                    </div>
+                    <div>
+                        <span style="color: var(--text-subtle); display: block; font-size: 0.8rem; text-transform: uppercase;">Requested Time Slot</span>
+                        <strong style="color: #ffffff;">{{ booking.preferred_time }}</strong>
+                    </div>
+                </div>
+
+                {% if booking.additional_notes %}
+                <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color);">
+                    <span style="color: var(--text-subtle); display: block; font-size: 0.8rem; text-transform: uppercase;">Additional Notes</span>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">{{ booking.additional_notes }}</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}?text=Hi%20AutozCraveStudio!%20I%20just%20submitted%20booking%20reference%20{{ booking.reference_code }}." target="_blank" class="btn-primary" style="background:#25d366; border:none;">
+                    <i class="fa-brands fa-whatsapp"></i> CONFIRM ON WHATSAPP
+                </a>
+                <a href="{{ url_for('main.index') }}" class="btn-outline">
+                    RETURN TO HOME
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

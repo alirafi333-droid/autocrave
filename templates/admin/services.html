@@ -1,0 +1,113 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Service Management | AutozCraveStudio Admin{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+    <div>
+        <h1 class="admin-page-title">SERVICE CATALOGUE MANAGEMENT</h1>
+        <p style="color: var(--admin-muted); font-size: 0.95rem;">Add, edit, enable/disable services shown on the public site</p>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 32px;">
+    <!-- Add Service Form -->
+    <div class="admin-card-box">
+        <h3 style="font-size: 1.2rem; margin-bottom: 20px;">ADD NEW SERVICE</h3>
+        
+        <form action="{{ url_for('admin.services') }}" method="POST" enctype="multipart/form-data" class="booking-form">
+            <div class="form-group">
+                <label class="form-label">Service Name *</label>
+                <input type="text" name="name" class="form-control" placeholder="e.g. Ultra Ceramic Shield" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Description *</label>
+                <textarea name="description" class="form-control" rows="4" placeholder="Detailed service specs and benefits..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Price (PKR / Estimate)</label>
+                <input type="text" name="price" class="form-control" placeholder="e.g. PKR 50,000">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Estimated Duration</label>
+                <input type="text" name="duration" class="form-control" placeholder="e.g. 2 Days">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Service Image File</label>
+                <input type="file" name="image" class="form-control" accept="image/*">
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 10px; margin: 12px 0;">
+                <input type="checkbox" id="is_active" name="is_active" checked style="width: 18px; height: 18px; accent-color: var(--admin-red);">
+                <label for="is_active" style="color: #fff; font-weight: 500;">Enable Service on Public Site</label>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%;">
+                <i class="fa-solid fa-plus-circle"></i> CREATE SERVICE
+            </button>
+        </form>
+    </div>
+
+    <!-- Existing Services Table -->
+    <div class="admin-table-container">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>IMAGE</th>
+                    <th>SERVICE DETAILS</th>
+                    <th>PRICE & DURATION</th>
+                    <th>STATUS</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in services %}
+                <tr>
+                    <td style="width: 80px;">
+                        <img src="{{ url_for('static', filename=s.image) if s.image else url_for('static', filename='images/hero_car.png') }}" alt="{{ s.name }}" style="width: 70px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid var(--admin-border);">
+                    </td>
+                    <td>
+                        <strong style="color:#fff; display:block; font-size:1.05rem;">{{ s.name }}</strong>
+                        <p style="font-size: 0.8rem; color: var(--admin-muted); max-width: 280px; margin-top: 4px;">{{ s.description[:100] }}...</p>
+                    </td>
+                    <td>
+                        <div style="color: var(--admin-red); font-weight: 700;">{{ s.price or 'Quote' }}</div>
+                        <div style="font-size: 0.8rem; color: var(--admin-muted);">{{ s.duration or 'N/A' }}</div>
+                    </td>
+                    <td>
+                        {% if s.is_active %}
+                        <span class="badge badge-completed">Active</span>
+                        {% else %}
+                        <span class="badge badge-cancelled">Disabled</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <form action="{{ url_for('admin.toggle_service', service_id=s.id) }}" method="POST">
+                                <button type="submit" class="btn-outline" style="padding: 4px 10px; font-size: 0.75rem;" title="Toggle Active State">
+                                    {% if s.is_active %}Disable{% else %}Enable{% endif %}
+                                </button>
+                            </form>
+
+                            <form action="{{ url_for('admin.delete_service', service_id=s.id) }}" method="POST" onsubmit="return confirm('Delete service {{ s.name }}?');">
+                                <button type="submit" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.1rem;" title="Delete Service">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center; color: var(--admin-muted); padding: 40px;">No services created yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

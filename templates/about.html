@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}About Us | AutozCraveStudio DHA Lahore{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section style="padding: 140px 0 60px 0; background: radial-gradient(circle at 50% 0%, rgba(255, 30, 39, 0.15) 0%, transparent 70%), var(--bg-dark); border-bottom: 1px solid var(--border-color); text-align: center;">
+    <div class="container">
+        <span class="section-tag">PRECISION • PASSION • PERFECTION</span>
+        <h1 class="section-title">ABOUT AUTOZCRAVESTUDIO</h1>
+        <p class="section-desc" style="max-width: 680px; margin: 0 auto;">
+            DHA Lahore's flagship automotive aesthetic and paint protection facility.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="grid-2" style="align-items: center;">
+            <div>
+                <span class="section-tag">THE AUTOZCRAVE STANDARD</span>
+                <h2 style="font-size: 2.4rem; margin-bottom: 24px; font-weight: 800; line-height: 1.2;">
+                    WHERE CRAFTSMANSHIP MEETS AUTOMOTIVE ARTISTRY.
+                </h2>
+                <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 20px; line-height: 1.8;">
+                    Located at <strong>75B Green Avenue, Near Broadway Commercial, DHA Phase 8, Lahore</strong>, AutozCraveStudio was established with a singular mission: to provide vehicle owners with world-class paint protection, hydrophobic nano-coatings, and concours-grade detailing.
+                </p>
+                <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 32px; line-height: 1.8;">
+                    Every vehicle entering our studio undergoes rigorous defect evaluation under specialized Scangrip inspection lighting before receiving tailor-made multi-stage paint correction and protective application.
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="glass-card" style="padding: 20px;">
+                        <i class="fa-solid fa-temperature-arrow-down" style="color: var(--red-z); font-size: 1.6rem; margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 1.1rem; margin-bottom: 6px;">Clean Room Studio</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Dust-free, temperature-controlled environment for flawless film application.</p>
+                    </div>
+                    <div class="glass-card" style="padding: 20px;">
+                        <i class="fa-solid fa-gem" style="color: var(--red-z); font-size: 1.6rem; margin-bottom: 10px;"></i>
+                        <h4 style="font-size: 1.1rem; margin-bottom: 6px;">Certified Technicians</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Master applicators trained in 9H/10H ceramic matrices and PPF edge wraps.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <img src="{{ url_for('static', filename='images/hero_car.png') }}" alt="AutozCraveStudio DHA Lahore" style="border-radius: var(--radius-md); border: 1px solid var(--border-color); box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

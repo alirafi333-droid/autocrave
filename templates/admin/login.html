@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | {{ config.BUSINESS_NAME }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body style="background: radial-gradient(circle at 50% 30%, rgba(255, 30, 39, 0.15) 0%, transparent 70%), #0a0b0e; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px;">
+
+    <div class="glass-panel" style="max-width: 440px; width: 100%; padding: 40px; border-top: 4px solid var(--red-z);">
+        
+        <div style="text-align: center; margin-bottom: 32px;">
+            <a href="{{ url_for('main.index') }}" class="brand-logo" style="font-size: 1.8rem; flex-direction: column; gap: 8px;">
+                <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="AutozCraveStudio Logo" class="brand-logo-img" style="height: 64px;">
+                <span>Auto<span class="z-red">Z</span>Crave<span class="studio-gray">Studio</span></span>
+            </a>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">ADMIN CONTROL PANEL ACCESS</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div style="padding: 12px 16px; border-radius: 6px; margin-bottom: 20px; font-size: 0.9rem; background: {% if category == 'error' %}rgba(255, 30, 39, 0.15){% else %}rgba(16, 185, 129, 0.15){% endif %}; border: 1px solid {% if category == 'error' %}#ff1e27{% else %}#10b981{% endif %}; color: #ffffff;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('auth.login') }}" method="POST" class="booking-form">
+            <div class="form-group">
+                <label class="form-label" for="email">Admin ID or Email</label>
+                <input type="text" id="email" name="email" class="form-control" placeholder="adminjawad" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 12px; padding: 14px;">
+                <i class="fa-solid fa-lock-open"></i> SIGN IN TO DASHBOARD
+            </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: var(--text-subtle);">
+            <a href="{{ url_for('main.index') }}" style="color: var(--text-muted);"><i class="fa-solid fa-arrow-left"></i> Return to main website</a>
+        </div>
+    </div>
+
+</body>
+</html>

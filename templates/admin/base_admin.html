@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Dashboard | {{ config.BUSINESS_NAME }}{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="admin-body">
+
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar-header">
+            <a href="{{ url_for('admin.dashboard') }}" class="brand-logo" style="font-size: 1.25rem;">
+                <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="AutozCraveStudio Logo" class="brand-logo-img" style="height: 36px;">
+                <span>Auto<span class="z-red">Z</span>Crave<span class="studio-gray">Studio</span></span>
+            </a>
+            <span style="display:inline-block; font-size:0.7rem; color:var(--red-z); background:rgba(255,30,39,0.15); border:1px solid rgba(255,30,39,0.3); padding:2px 8px; border-radius:50px; font-weight:700; margin-top:8px; letter-spacing:0.5px;">ADMIN PANEL</span>
+        </div>
+
+        <nav class="admin-nav">
+            <a href="{{ url_for('admin.dashboard') }}" class="admin-nav-item {% if request.endpoint == 'admin.dashboard' %}active{% endif %}">
+                <i class="fa-solid fa-chart-pie"></i> Overview
+            </a>
+            <a href="{{ url_for('admin.bookings') }}" class="admin-nav-item {% if request.endpoint == 'admin.bookings' %}active{% endif %}">
+                <i class="fa-solid fa-calendar-check"></i> Bookings
+            </a>
+            <a href="{{ url_for('admin.services') }}" class="admin-nav-item {% if request.endpoint == 'admin.services' %}active{% endif %}">
+                <i class="fa-solid fa-spray-can-sparkles"></i> Services
+            </a>
+            <a href="{{ url_for('admin.gallery') }}" class="admin-nav-item {% if request.endpoint == 'admin.gallery' %}active{% endif %}">
+                <i class="fa-solid fa-images"></i> Gallery Manager
+            </a>
+            <a href="{{ url_for('admin.before_after') }}" class="admin-nav-item {% if request.endpoint == 'admin.before_after' %}active{% endif %}">
+                <i class="fa-solid fa-sliders"></i> Before & After
+            </a>
+            <a href="{{ url_for('admin.messages') }}" class="admin-nav-item {% if request.endpoint == 'admin.messages' %}active{% endif %}">
+                <i class="fa-solid fa-envelope"></i> Messages Inbox
+            </a>
+        </nav>
+
+        <div class="admin-sidebar-footer">
+            <div style="font-size: 0.85rem; color: var(--admin-muted); margin-bottom: 12px;">
+                Logged in as: <strong style="color:#fff;">{{ current_user.name }}</strong>
+            </div>
+            <a href="{{ url_for('main.index') }}" class="btn-outline" target="_blank" style="width: 100%; padding: 8px 14px; font-size: 0.8rem; margin-bottom: 8px;">
+                <i class="fa-solid fa-globe"></i> View Public Site
+            </a>
+            <a href="{{ url_for('auth.logout') }}" class="btn-primary" style="width: 100%; padding: 8px 14px; font-size: 0.8rem; background: #dc2626;">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Admin Main Container -->
+    <main class="admin-main">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div style="padding: 14px 20px; border-radius: 8px; margin-bottom: 24px; background: {% if category == 'error' %}rgba(255, 30, 39, 0.15){% elif category == 'success' %}rgba(16, 185, 129, 0.15){% else %}rgba(59, 130, 246, 0.15){% endif %}; border: 1px solid {% if category == 'error' %}#ff1e27{% elif category == 'success' %}#10b981{% else %}#3b82f6{% endif %}; color: #ffffff;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

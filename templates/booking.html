@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Request a Quote / Appointment | AutozCraveStudio DHA Lahore{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section style="padding: 140px 0 60px 0; background: radial-gradient(circle at 50% 0%, rgba(255, 30, 39, 0.15) 0%, transparent 70%), var(--bg-dark); border-bottom: 1px solid var(--border-color); text-align: center;">
+    <div class="container">
+        <span class="section-tag">NO LOGIN OR ACCOUNT NEEDED</span>
+        <h1 class="section-title">REQUEST A QUOTE / APPOINTMENT</h1>
+        <p class="section-desc" style="max-width: 680px; margin: 0 auto;">
+            Fill in your vehicle details and contact info below. Our team will review your request and get back to you immediately with slot confirmation and quote details.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container" style="max-width: 840px;">
+        <div class="glass-panel" style="padding: 44px;">
+            <form action="{{ url_for('booking.book') }}" method="POST" id="service-booking-form" class="booking-form">
+                
+                <h3 style="font-size: 1.25rem; color: var(--red-z); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-bottom: 8px;">
+                    <i class="fa-solid fa-list-check" style="margin-right: 8px;"></i> 1. SELECT SERVICE
+                </h3>
+                
+                <div class="form-group">
+                    <label class="form-label" for="service_id">Choose Service / Coating Package *</label>
+                    <select id="service_id" name="service_id" class="form-select" required>
+                        <option value="" disabled {% if not selected_service_id %}selected{% endif %}>-- Select a Service --</option>
+                        {% for s in services %}
+                        <option value="{{ s.id }}" {% if selected_service_id == s.id %}selected{% endif %}>
+                            {{ s.name }} ({{ s.price or 'Contact for Quote' }}) - Est. Duration: {{ s.duration or '1 Day' }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <h3 style="font-size: 1.25rem; color: var(--red-z); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 16px; margin-bottom: 8px;">
+                    <i class="fa-solid fa-user" style="margin-right: 8px;"></i> 2. YOUR CONTACT INFO
+                </h3>
+
+                <div class="form-group">
+                    <label class="form-label" for="customer_name">Full Name *</label>
+                    <input type="text" id="customer_name" name="customer_name" class="form-control" placeholder="e.g. Hamza Khan" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label class="form-label" for="customer_email">Email Address *</label>
+                        <input type="email" id="customer_email" name="customer_email" class="form-control" placeholder="name@domain.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="customer_phone">Phone / WhatsApp Number *</label>
+                        <input type="tel" id="customer_phone" name="customer_phone" class="form-control" placeholder="+92 300 1234567" required>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.25rem; color: var(--red-z); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 16px; margin-bottom: 8px;">
+                    <i class="fa-solid fa-car" style="margin-right: 8px;"></i> 3. VEHICLE DETAILS
+                </h3>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                    <div class="form-group">
+                        <label class="form-label" for="vehicle_make">Vehicle Make *</label>
+                        <input type="text" id="vehicle_make" name="vehicle_make" class="form-control" placeholder="e.g. Porsche / Audi" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="vehicle_model">Vehicle Model *</label>
+                        <input type="text" id="vehicle_model" name="vehicle_model" class="form-control" placeholder="e.g. 911 GT3 / RS6" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="vehicle_year">Model Year *</label>
+                        <input type="number" id="vehicle_year" name="vehicle_year" class="form-control" min="1950" max="2027" placeholder="2025" required>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.25rem; color: var(--red-z); border-bottom: 1px solid var(--border-color); padding-bottom: 10px; margin-top: 16px; margin-bottom: 8px;">
+                    <i class="fa-solid fa-clock" style="margin-right: 8px;"></i> 4. PREFERRED DATE & TIME
+                </h3>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="form-group">
+                        <label class="form-label" for="preferred_date">Preferred Date *</label>
+                        <input type="date" id="preferred_date" name="preferred_date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="preferred_time">Preferred Time Slot *</label>
+                        <select id="preferred_time" name="preferred_time" class="form-select" required>
+                            <option value="10:00 AM">10:00 AM (Morning)</option>
+                            <option value="12:00 PM">12:00 PM (Midday)</option>
+                            <option value="02:00 PM">02:00 PM (Afternoon)</option>
+                            <option value="04:00 PM">04:00 PM (Late Afternoon)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="additional_notes">Additional Notes / Vehicle Paint Condition</label>
+                    <textarea id="additional_notes" name="additional_notes" class="form-control" rows="3" placeholder="Mention specific swirls, scratch areas, or custom package requests..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 16px; padding: 16px; font-size: 1.05rem;">
+                    <i class="fa-solid fa-paper-plane"></i> SUBMIT QUOTE REQUEST
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/booking.js') }}"></script>
+{% endblock %}

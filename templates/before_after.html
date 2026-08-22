@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Before & After Transformations | AutozCraveStudio{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section style="padding: 140px 0 60px 0; background: radial-gradient(circle at 50% 0%, rgba(255, 30, 39, 0.15) 0%, transparent 70%), var(--bg-dark); border-bottom: 1px solid var(--border-color); text-align: center;">
+    <div class="container">
+        <span class="section-tag">UNFILTERED REAL RESULTS</span>
+        <h1 class="section-title">SEE THE DIFFERENCE.</h1>
+        <p class="section-desc" style="max-width: 680px; margin: 0 auto;">
+            Drag the comparison handles left and right to inspect paint swirl elimination, scratch restoration, and ceramic gloss reflections achieved by our team.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div style="display: flex; flex-direction: column; gap: 80px;">
+            {% for project in projects %}
+            <div class="glass-panel" style="padding: 36px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
+                    <div>
+                        <span style="color: var(--red-z); font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">{{ project.service_category }}</span>
+                        <h2 style="font-size: 2rem; font-weight: 800; margin-top: 4px;">{{ project.title }}</h2>
+                    </div>
+                    <a href="{{ url_for('booking.book') }}" class="btn-primary" style="padding: 10px 22px; font-size: 0.85rem;">
+                        <i class="fa-solid fa-calendar-check"></i> GET THIS RESULT
+                    </a>
+                </div>
+
+                <div class="ba-container">
+                    <img src="{{ url_for('static', filename=project.after_image) }}" alt="AFTER - {{ project.title }}" class="ba-image">
+                    
+                    <div class="ba-image-before">
+                        <img src="{{ url_for('static', filename=project.before_image) }}" alt="BEFORE - {{ project.title }}">
+                    </div>
+                    
+                    <div class="ba-slider-handle">
+                        <div class="ba-slider-button">
+                            <i class="fa-solid fa-arrows-left-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="ba-badge ba-badge-before">BEFORE TREATMENT</div>
+                    <div class="ba-badge ba-badge-after">AFTER AUTOZCRAVE</div>
+                </div>
+
+                {% if project.description %}
+                <p style="color: var(--text-muted); font-size: 1.05rem; margin-top: 24px; line-height: 1.7;">
+                    {{ project.description }}
+                </p>
+                {% endif %}
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: 60px 0; color: var(--text-muted);">
+                <h3>No before & after comparison projects created yet.</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/before_after.js') }}"></script>
+{% endblock %}

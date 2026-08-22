@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Our Detailing Services | AutozCraveStudio DHA Lahore{% endblock %}
+
+{% block content %}
+<!-- Page Banner -->
+<section style="padding: 60px 0 40px 0; background: radial-gradient(circle at 50% 0%, rgba(255, 30, 39, 0.15) 0%, transparent 70%), var(--bg-dark); border-bottom: 1px solid var(--border-color); text-align: center;">
+    <div class="container">
+        <span class="section-tag">ENGINEERED PROTECTION CATALOGUE</span>
+        <h1 class="section-title">OUR DETAILING & COATING SERVICES</h1>
+        <p class="section-desc" style="max-width: 680px; margin: 0 auto;">
+            Explore our state-of-the-art ceramic coatings, graphene nano-shields, self-healing TPU PPF wraps, and interior/exterior concours restoration packages inside our DHA Lahore studio.
+        </p>
+    </div>
+</section>
+
+<!-- Dynamic Services Grid -->
+<section class="section">
+    <div class="container">
+        <div class="grid-3">
+            {% for service in services %}
+            <div class="glass-card service-card">
+                <img src="{{ url_for('static', filename=service.image) if service.image else url_for('static', filename='images/studio_bmw.jpg') }}" alt="{{ service.name }}" class="service-card-img" style="height: 240px; object-fit: cover;">
+                <div class="service-card-body">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                        <h3 class="service-card-title">{{ service.name }}</h3>
+                        <span style="font-size: 0.75rem; background: rgba(255,30,39,0.15); color: var(--red-z); padding: 4px 10px; border-radius: 50px; border: 1px solid rgba(255,30,39,0.3); font-weight: 700;">ACTIVE</span>
+                    </div>
+                    
+                    <p class="service-card-desc">{{ service.description }}</p>
+                    
+                    <!-- What You Get Included Checklist -->
+                    <div style="background: rgba(10,11,14,0.6); padding: 14px; border-radius: 6px; border: 1px solid var(--border-color); margin-bottom: 20px;">
+                        <div style="font-size: 0.75rem; color: var(--red-z); font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">WHAT YOU GET INCLUDED</div>
+                        <ul style="font-size: 0.85rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 4px;">
+                            <li><i class="fa-solid fa-check" style="color:#10b981; margin-right:6px;"></i> Paint preparation & decontamination</li>
+                            <li><i class="fa-solid fa-check" style="color:#10b981; margin-right:6px;"></i> Scangrip defect evaluation</li>
+                            <li><i class="fa-solid fa-check" style="color:#10b981; margin-right:6px;"></i> Multi-stage rotary machine polishing</li>
+                            <li><i class="fa-solid fa-check" style="color:#10b981; margin-right:6px;"></i> Cleanroom coating application</li>
+                            <li><i class="fa-solid fa-check" style="color:#10b981; margin-right:6px;"></i> Infrared curing & final inspection</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-card-meta">
+                        <div class="service-price">{{ service.price or 'Contact for Pricing' }}</div>
+                        <div class="service-duration"><i class="fa-regular fa-clock"></i> {{ service.duration or '1 Day' }}</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <a href="{{ url_for('booking.book', service_id=service.id) }}" class="btn-primary" style="flex: 1; padding: 12px; font-size: 0.85rem;">
+                            <i class="fa-solid fa-calendar-check"></i> REQUEST QUOTE
+                        </a>
+                        <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}?text=Hi%20AutozCraveStudio!%20I'm%20inquiring%20about%20{{ service.name }}." target="_blank" class="btn-primary" style="background:#25d366; border:none; padding: 12px;">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 0; color: var(--text-muted);">
+                <h3>No active services found.</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

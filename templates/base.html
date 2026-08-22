@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ config.BUSINESS_NAME }} | Premium Automotive Detailing & PPF | DHA Lahore{% endblock %}</title>
+
+    <!-- Favicon & Icon -->
+    <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='images/logo.jpg') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="AutozCraveStudio - DHA Lahore's premier public automotive studio specializing in 9H Ceramic Coating, 10H Graphene Coating, Paint Protection Film (PPF), Glass Shield & Deep Detailing. Contact us today.">
+    <meta name="keywords" content="Ceramic coating Lahore, PPF Lahore, Graphene coating Lahore, Car detailing DHA Lahore, Paint Protection Film Lahore, Glass coating Lahore, AutozCraveStudio">
+    <meta name="author" content="AutozCraveStudio">
+
+    <!-- Open Graph / Social Meta -->
+    <meta property="og:title" content="AutozCraveStudio - Protect The Look. Preserve The Legacy.">
+    <meta property="og:description" content="Premium Automotive Detailing, Ceramic Coating & PPF in DHA, Lahore, Pakistan. Contact us for a free quote.">
+    <meta property="og:image" content="{{ url_for('static', filename='images/hero_car.png') }}">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- Ambient Grid Canvas Background -->
+    <canvas id="3d-canvas-bg" style="position:fixed; inset:0; pointer-events:none; z-index:0; opacity:0.5;"></canvas>
+
+    <!-- Top Announcement & Quick Contact Bar -->
+    <div class="top-contact-bar">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+                <span><i class="fa-solid fa-location-dot" style="color:var(--red-z); margin-right: 6px;"></i> 75B Green Avenue, Near Broadway Commercial, DHA Phase 8, Lahore</span>
+                <span><i class="fa-solid fa-clock" style="color:var(--red-z); margin-right: 6px;"></i> Mon - Sat: 10:00 AM - 08:00 PM</span>
+            </div>
+            <div style="display: flex; gap: 24px; align-items: center;">
+                <a href="tel:{{ config.PHONE }}" style="color: #ffffff; font-weight: 600;"><i class="fa-solid fa-phone" style="color:var(--red-z); margin-right: 6px;"></i> Call Us: {{ config.PHONE }}</a>
+                <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}" target="_blank" rel="noopener" style="color: #25d366; font-weight: 600;"><i class="fa-brands fa-whatsapp" style="margin-right: 6px;"></i> WhatsApp Direct</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Public Navigation -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="{{ url_for('main.index') }}" class="brand-logo">
+                <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="AutozCraveStudio Logo" class="brand-logo-img">
+                <span class="brand-logo-text">Auto<span class="z-red">Z</span>Crave<span class="studio-gray">Studio</span></span>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <nav class="nav-links">
+                <a href="{{ url_for('main.index') }}" class="nav-link {% if request.endpoint == 'main.index' %}active{% endif %}">Home</a>
+                <a href="{{ url_for('main.services') }}" class="nav-link {% if request.endpoint == 'main.services' %}active{% endif %}">Services</a>
+                <a href="{{ url_for('main.products_used') }}" class="nav-link {% if request.endpoint == 'main.products_used' %}active{% endif %}">Products Used</a>
+                <a href="{{ url_for('main.instagram_work') }}" class="nav-link {% if request.endpoint == 'main.instagram_work' %}active{% endif %}">Instagram Work</a>
+                <a href="{{ url_for('main.about') }}" class="nav-link {% if request.endpoint == 'main.about' %}active{% endif %}">About Us</a>
+                <a href="{{ url_for('main.contact') }}" class="nav-link {% if request.endpoint == 'main.contact' %}active{% endif %}">Contact Us</a>
+                <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}?text=Hello%20AutozCraveStudio!%20I%20want%20to%20get%20a%20detailing%20quote." target="_blank" rel="noopener" class="btn-primary" style="background:#25d366; border:none; padding: 10px 20px; font-size: 0.85rem; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
+                    <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Flash Messages Container -->
+    <div style="position: fixed; top: 90px; right: 24px; z-index: 1100; max-width: 420px; width: 100%;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert-dismissible glass-panel" style="padding: 16px 20px; margin-bottom: 12px; border-left: 4px solid {% if category == 'error' %}#ff1e27{% elif category == 'success' %}#10b981{% else %}#3b82f6{% endif %}; transition: opacity 0.3s ease;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <span style="font-size: 0.95rem; font-weight: 500;">{{ message }}</span>
+                            <button onclick="this.parentElement.parentElement.remove()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:1.2rem;">&times;</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Public Content -->
+    <main style="position:relative; z-index:1;">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}?text=Hello%20AutozCraveStudio!%20I%20would%20like%20to%20inquire%20about%20your%20detailing%20and%20coating%20services." 
+       target="_blank" 
+       rel="noopener"
+       class="whatsapp-float" 
+       title="Chat on WhatsApp with AutozCraveStudio">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="site-footer" style="position:relative; z-index:1;">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="{{ url_for('main.index') }}" class="brand-logo" style="margin-bottom: 16px;">
+                        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="AutozCraveStudio Logo" class="brand-logo-img">
+                        <span class="brand-logo-text">Auto<span class="z-red">Z</span>Crave<span class="studio-gray">Studio</span></span>
+                    </a>
+                    <p class="footer-desc">
+                        Lahore's premier public automotive studio for ceramic coatings, 10H graphene shields, paint protection film (PPF) and concours-level detailing in DHA Lahore. Contact us anytime for a free quote.
+                    </p>
+                    <div style="margin-top: 20px; display: flex; gap: 16px; font-size: 1.3rem;">
+                        <a href="https://instagram.com/autozcravestudio" target="_blank" rel="noopener" style="color: #ffffff;" title="Follow AutozCraveStudio on Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}" target="_blank" rel="noopener" style="color: #25d366;"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="tel:{{ config.PHONE }}" style="color: var(--red-z);"><i class="fa-solid fa-phone"></i></a>
+                        <a href="{{ url_for('main.contact') }}" style="color: #ffffff;"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="{{ url_for('main.index') }}" class="footer-link">Home</a>
+                        <a href="{{ url_for('main.services') }}" class="footer-link">Our Services</a>
+                        <a href="{{ url_for('main.products_used') }}" class="footer-link">Products Used</a>
+                        <a href="{{ url_for('main.instagram_work') }}" class="footer-link">Instagram Work</a>
+                        <a href="{{ url_for('main.about') }}" class="footer-link">About Us</a>
+                        <a href="{{ url_for('main.contact') }}" class="footer-link">Contact Us</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Services</h4>
+                    <div class="footer-links">
+                        <a href="{{ url_for('main.services') }}" class="footer-link">Ceramic Coating</a>
+                        <a href="{{ url_for('main.services') }}" class="footer-link">Glass Coating</a>
+                        <a href="{{ url_for('main.services') }}" class="footer-link">Graphene Coating</a>
+                        <a href="{{ url_for('main.services') }}" class="footer-link">PPF Protection</a>
+                        <a href="{{ url_for('main.services') }}" class="footer-link">Deep Detailing</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Contact & Location</h4>
+                    <p style="color:var(--text-muted); font-size: 0.95rem; margin-bottom: 12px;">
+                        <i class="fa-solid fa-location-dot" style="color:var(--red-z); margin-right: 8px;"></i>
+                        {{ config.ADDRESS }}
+                    </p>
+                    <p style="color:var(--text-muted); font-size: 0.95rem; margin-bottom: 12px;">
+                        <i class="fa-solid fa-phone" style="color:var(--red-z); margin-right: 8px;"></i>
+                        <a href="tel:{{ config.PHONE }}" style="color: inherit;">{{ config.PHONE }}</a>
+                    </p>
+                    <p style="color:var(--text-muted); font-size: 0.95rem; margin-bottom: 16px;">
+                        <i class="fa-solid fa-clock" style="color:var(--red-z); margin-right: 8px;"></i>
+                        {{ config.WORKING_HOURS }}
+                    </p>
+                    <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}" target="_blank" rel="noopener" class="btn-primary" style="background:#25d366; border:none; padding:10px 18px; font-size:0.85rem;">
+                        <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>&copy; {{ current_year }} {{ config.BUSINESS_NAME }}. Public Automotive Studio — DHA Lahore, Pakistan.</div>
+                <div><a href="{{ url_for('auth.login') }}" style="color: var(--text-subtle); opacity: 0.6;"><i class="fa-solid fa-lock" style="margin-right:4px;"></i> Studio Admin Login</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Global JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cursor_transitions.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/configurator.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

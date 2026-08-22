@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us | AutozCraveStudio DHA Lahore{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section style="padding: 140px 0 60px 0; background: radial-gradient(circle at 50% 0%, rgba(255, 30, 39, 0.15) 0%, transparent 70%), var(--bg-dark); border-bottom: 1px solid var(--border-color); text-align: center;">
+    <div class="container">
+        <span class="section-tag">GET IN TOUCH WITH OUR TEAM</span>
+        <h1 class="section-title">CONTACT AUTOZCRAVESTUDIO</h1>
+        <p class="section-desc" style="max-width: 680px; margin: 0 auto;">
+            Have questions about our ceramic coatings, PPF packages, or custom detailing slots? Send us a message or chat directly via WhatsApp.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="grid-2">
+            <!-- Contact Form -->
+            <div class="glass-panel" style="padding: 40px;">
+                <h2 style="font-size: 1.8rem; margin-bottom: 24px;">SEND A MESSAGE</h2>
+                
+                <form action="{{ url_for('main.contact') }}" method="POST" class="booking-form">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Your Name *</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="e.g. Zayn Malik" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="name@domain.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone / WhatsApp</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="+92 300 0000000">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="subject">Subject *</label>
+                        <input type="text" id="subject" name="subject" class="form-control" placeholder="e.g. Inquiry regarding PPF for Porsche 911" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="message">Your Message *</label>
+                        <textarea id="message" name="message" class="form-control" rows="5" placeholder="Tell us about your vehicle model, current paint condition, and required service..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 12px;">
+                        <i class="fa-solid fa-paper-plane"></i> SUBMIT MESSAGE
+                    </button>
+                </form>
+            </div>
+
+            <!-- Studio Info & Location -->
+            <div style="display: flex; flex-direction: column; gap: 24px;">
+                <div class="glass-panel" style="padding: 32px;">
+                    <h3 style="font-size: 1.4rem; margin-bottom: 20px; color: var(--red-z);">STUDIO INFORMATION</h3>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="width: 44px; height: 44px; background: rgba(255,30,39,0.15); border: 1px solid rgba(255,30,39,0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--red-z); font-size: 1.2rem; flex-shrink: 0;">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h5 style="font-size: 1rem; color: #ffffff; margin-bottom: 4px;">Location</h5>
+                                <p style="color: var(--text-muted); font-size: 0.95rem;">{{ config.ADDRESS }}</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="width: 44px; height: 44px; background: rgba(255,30,39,0.15); border: 1px solid rgba(255,30,39,0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--red-z); font-size: 1.2rem; flex-shrink: 0;">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h5 style="font-size: 1rem; color: #ffffff; margin-bottom: 4px;">Phone & Helpline</h5>
+                                <p style="color: var(--text-muted); font-size: 0.95rem;">{{ config.PHONE }}</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start;">
+                            <div style="width: 44px; height: 44px; background: rgba(255,30,39,0.15); border: 1px solid rgba(255,30,39,0.3); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--red-z); font-size: 1.2rem; flex-shrink: 0;">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <h5 style="font-size: 1rem; color: #ffffff; margin-bottom: 4px;">Working Hours</h5>
+                                <p style="color: var(--text-muted); font-size: 0.95rem;">{{ config.WORKING_HOURS }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="padding: 32px; text-align: center;">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 3rem; color: #25d366; margin-bottom: 16px;"></i>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 8px;">PREFER INSTANT CHAT?</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.95rem;">
+                        Connect with our studio manager directly on WhatsApp for instant slot availability and quick estimates.
+                    </p>
+                    <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}" target="_blank" class="btn-primary" style="background: #25d366; width: 100%; border: none; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);">
+                        <i class="fa-brands fa-whatsapp"></i> CHAT ON WHATSAPP
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Messages Inbox | AutozCraveStudio Admin{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+    <div>
+        <h1 class="admin-page-title">CUSTOMER MESSAGES INBOX</h1>
+        <p style="color: var(--admin-muted); font-size: 0.95rem;">Review website enquiries and contact submissions</p>
+    </div>
+</div>
+
+<div class="admin-table-container">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>STATUS</th>
+                <th>SENDER INFO</th>
+                <th>SUBJECT & MESSAGE</th>
+                <th>DATE RECEIVED</th>
+                <th>ACTIONS</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for m in messages %}
+            <tr style="{% if m.status == 'Unread' %}background: rgba(255, 30, 39, 0.04);{% endif %}">
+                <td>
+                    {% if m.status == 'Unread' %}
+                    <span class="badge badge-cancelled">Unread</span>
+                    {% else %}
+                    <span class="badge badge-completed">Read</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <strong style="color: #fff; display: block;">{{ m.name }}</strong>
+                    <div style="font-size: 0.8rem; color: var(--admin-muted);">
+                        <i class="fa-solid fa-envelope" style="margin-right: 4px;"></i>{{ m.email }}<br>
+                        {% if m.phone %}<i class="fa-solid fa-phone" style="margin-right: 4px;"></i>{{ m.phone }}{% endif %}
+                    </div>
+                </td>
+                <td>
+                    <strong style="color: var(--admin-red); display: block; margin-bottom: 4px;">{{ m.subject }}</strong>
+                    <p style="font-size: 0.9rem; color: #d1d5db; line-height: 1.5; max-width: 460px;">
+                        {{ m.message }}
+                    </p>
+                </td>
+                <td style="font-size: 0.85rem; color: var(--admin-muted);">
+                    {{ m.created_at.strftime('%Y-%m-%d %H:%M') }}
+                </td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                        {% if m.phone %}
+                        <a href="https://wa.me/{{ m.phone | replace('+', '') | replace(' ', '') | replace('-', '') }}?text=Hi%20{{ m.name | urlencode }},%20thank%20you%20for%20contacting%20AutozCraveStudio%20regarding:%20{{ m.subject | urlencode }}." target="_blank" class="btn-primary" style="background:#25d366; padding: 4px 10px; font-size: 0.75rem; border:none;" title="Reply on WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                        </a>
+                        {% endif %}
+                        <a href="mailto:{{ m.email }}?subject=Re:%20{{ m.subject | urlencode }}%20-%20AutozCraveStudio" class="btn-outline" style="padding: 4px 10px; font-size: 0.75rem;" title="Reply by Email">
+                            <i class="fa-solid fa-reply"></i> Email
+                        </a>
+                        <form action="{{ url_for('admin.toggle_message_read', msg_id=m.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn-outline" style="padding: 4px 10px; font-size: 0.75rem;">
+                                Mark {% if m.status == 'Unread' %}Read{% else %}Unread{% endif %}
+                            </button>
+                        </form>
+                        <form action="{{ url_for('admin.delete_message', msg_id=m.id) }}" method="POST" onsubmit="return confirm('Delete message from {{ m.name }}?');" style="display:inline;">
+                            <button type="submit" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.1rem; padding: 4px;" title="Delete Message">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" style="text-align: center; color: var(--admin-muted); padding: 40px;">No contact messages received yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

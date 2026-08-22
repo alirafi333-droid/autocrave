@@ -1,0 +1,817 @@
+{% extends "base.html" %}
+
+{% block title %}AutozCraveStudio | Ceramic Coating, PPF & Detailing | DHA Lahore{% endblock %}
+
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     1. CINEMATIC HERO — "THE REVEAL"
+     Car starts hidden in darkness → red light sweeps → car revealed
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="hero-section" id="hero-reveal-section">
+
+    <!-- Darkness overlay that fades away on reveal -->
+    <div id="hero-darkness" style="position:absolute; inset:0; background:#000; z-index:10; pointer-events:none; transition: opacity 0.8s ease; opacity:1;"></div>
+
+    <!-- Red Sweep Light Beam -->
+    <div class="red-light-sweep" id="red-beam"></div>
+
+    <!-- The Studio BMW Car -->
+    <div class="hero-car-wrapper">
+        <img src="{{ url_for('static', filename='images/studio_bmw.jpg') }}"
+             alt="AutozCraveStudio BMW Sedan — DHA Lahore"
+             class="hero-reveal-car"
+             id="hero-car-img">
+    </div>
+
+    <!-- Hero Text Content — fades in after reveal -->
+    <div class="hero-content" id="hero-text-content" style="opacity:0; transform:translateY(24px); transition: opacity 1.2s ease 1.0s, transform 1.2s ease 1.0s; position:relative; z-index:11;">
+        <div class="hero-badge">
+            <i class="fa-solid fa-shield-halved"></i>
+            {{ config.LOCATION }}
+        </div>
+
+        <h1 class="hero-title" style="font-size: clamp(2.4rem, 5vw, 4rem); margin-top: 10px;">
+            PROTECT THE LOOK.<br>
+            <span class="highlight">PRESERVE THE LEGACY.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+            DHA Lahore's flagship automotive studio. 9H ceramic matrix armor, 10H graphene shields, self-healing PPF wraps, and concours-level gloss for luxury vehicles.
+        </p>
+
+        <div class="hero-actions">
+            <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}?text=Hi%20AutozCraveStudio!%20I%20would%20like%20to%20get%20a%20free%20quote."
+               target="_blank" rel="noopener" class="btn-primary"
+               style="background:#25d366; border:none; box-shadow:0 6px 20px rgba(37,211,102,0.4);">
+                <i class="fa-brands fa-whatsapp"></i> INSTANT WHATSAPP QUOTE
+            </a>
+            <a href="#package-builder-section" class="btn-primary">
+                <i class="fa-solid fa-sliders"></i> BUILD YOUR PACKAGE
+            </a>
+            <a href="#protection-quiz-section" class="btn-outline">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> FIND YOUR PROTECTION QUIZ
+            </a>
+        </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div id="hero-scroll-hint" style="position:absolute; bottom:28px; left:50%; transform:translateX(-50%); z-index:12; opacity:0; transition:opacity 1s ease 2.2s; text-align:center;">
+        <div style="color:var(--text-muted); font-size:0.75rem; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px;">SCROLL TO EXPLORE</div>
+        <div style="width:1px; height:40px; background:var(--red-z); margin:0 auto; animation:scrollPulse 1.8s ease-in-out infinite;"></div>
+    </div>
+</section>
+
+<style>
+@keyframes scrollPulse {
+    0%, 100% { opacity:0.2; transform:scaleY(1); }
+    50% { opacity:1; transform:scaleY(1.3); }
+}
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     2. CINEMATIC BEFORE → AFTER TRANSFORMATION SLIDER
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="before-after-section" style="background:#060709; padding:80px 0; border-y: 1px solid var(--border-color);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">PROOF OF TRANSFORMATION</span>
+            <h2 class="section-title">BEFORE → AFTER</h2>
+            <p class="section-desc">Drag the slider to witness the exact transformation from dull contaminated paint to deep mirror gloss. Your own vehicle. Our guarantee.</p>
+        </div>
+
+        <!-- Cinematic Slider -->
+        <div style="max-width:860px; margin:0 auto;">
+            <div id="ba-container" style="position:relative; width:100%; aspect-ratio:720/639; max-height:640px; border-radius: var(--radius-md); overflow:hidden; box-shadow:0 30px 60px rgba(0,0,0,0.8); border:1px solid var(--border-color); cursor:ew-resize; user-select:none; touch-action:none;" >
+
+                <!-- AFTER image (bottom layer, exact 1:1 fit) -->
+                <div id="ba-after" style="position:absolute; inset:0; width:100%; height:100%; overflow:hidden;">
+                    <img src="{{ url_for('static', filename='images/after_bmw.jpg') }}"
+                         alt="After — AutozCraveStudio Mirror Gloss Finish"
+                         id="ba-after-img"
+                         style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;">
+
+                    <!-- AFTER label -->
+                    <div style="position:absolute; top:20px; right:20px; z-index:5; background:rgba(16,185,129,0.9); color:#fff; padding:6px 16px; border-radius:4px; font-family:var(--font-heading); font-size:0.85rem; font-weight:800; letter-spacing:2px; backdrop-filter:blur(6px); pointer-events:none;">
+                        ✓ AFTER
+                    </div>
+
+                    <!-- After state descriptors -->
+                    <div style="position:absolute; bottom:20px; right:20px; z-index:5; text-align:right; pointer-events:none;">
+                        <div style="color:#10b981; font-size:0.8rem; font-weight:700; text-transform:uppercase; line-height:1.7;">
+                            <div>✦ Deep Mirror Gloss</div>
+                            <div>✦ Crystal Clear Reflections</div>
+                            <div>✦ Hydrophobic Surface</div>
+                        </div>
+                        <div style="margin-top:6px; background:rgba(0,0,0,0.75); padding:6px 12px; border-radius:4px; font-size:0.75rem; color:#fff; font-weight:600;">PAINT CORRECTION + CERAMIC COATING</div>
+                    </div>
+                </div>
+
+                <!-- BEFORE overlay (top layer with clip-path inset, exact 1:1 fit) -->
+                <div id="ba-before" style="position:absolute; inset:0; width:100%; height:100%; overflow:hidden; clip-path: inset(0 50% 0 0); pointer-events:none;">
+                    <img src="{{ url_for('static', filename='images/before_bmw.jpg') }}"
+                         alt="Before — Dull paint condition before detailing"
+                         id="ba-before-img"
+                         style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
+
+                    <!-- BEFORE label -->
+                    <div style="position:absolute; top:20px; left:20px; z-index:5; background:rgba(239,68,68,0.9); color:#fff; padding:6px 16px; border-radius:4px; font-family:var(--font-heading); font-size:0.85rem; font-weight:800; letter-spacing:2px; backdrop-filter:blur(6px);">
+                        ✗ BEFORE
+                    </div>
+
+                    <!-- Before state descriptors -->
+                    <div style="position:absolute; bottom:20px; left:20px; z-index:5;">
+                        <div style="color:#ef4444; font-size:0.8rem; font-weight:700; text-transform:uppercase; line-height:1.7;">
+                            <div>✗ Dull Paint & Contamination</div>
+                            <div>✗ Swirl Marks & Scratches</div>
+                            <div>✗ Unprotected Surface</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divider line & drag handle -->
+                <div id="ba-divider" style="position:absolute; top:0; bottom:0; left:50%; width:3px; background:var(--red-z); box-shadow:0 0 20px var(--red-glow), 0 0 40px var(--red-glow); z-index:20; transform:translateX(-50%); pointer-events:none;">
+                    <div id="ba-handle" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); width:48px; height:48px; background:var(--red-z); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 0 20px var(--red-glow); font-size:1.1rem; color:#fff; cursor:ew-resize; pointer-events:auto; transition: transform 0.15s ease;">
+                        <i class="fa-solid fa-left-right"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Below slider CTA -->
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:24px; flex-wrap:wrap; gap:12px;">
+                <p style="color:var(--text-muted); font-size:0.9rem; margin:0;">
+                    <i class="fa-solid fa-circle-info" style="color:var(--red-z); margin-right:6px;"></i>
+                    Send us your car photos on WhatsApp — we'll show you the transformation potential.
+                </p>
+                <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}?text=Hi%20AutozCraveStudio!%20I%20want%20to%20see%20a%20before%20and%20after%20estimate%20for%20my%20car." target="_blank" rel="noopener" class="btn-primary" style="background:#25d366; border:none; padding:10px 20px; font-size:0.85rem;">
+                    <i class="fa-brands fa-whatsapp"></i> SEE YOUR CAR TRANSFORMED
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     3. SCROLL-TRIGGERED TYPOGRAPHY BANNER
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" style="background:#060709; text-align:center; border-y:1px solid var(--border-color); padding:70px 0;">
+    <div class="container">
+        <span class="section-tag">OUR UNCOMPROMISING PHILOSOPHY</span>
+        <h2 class="scroll-reveal-text" style="font-size:3.5rem; text-transform:uppercase; font-weight:900; line-height:1.1; transition:all 0.8s ease;">
+            WE DON'T JUST DETAIL CARS.<br>
+            <span style="background:linear-gradient(90deg, #ffffff 0%, var(--red-z) 100%); -webkit-background-clip:text; background-clip:text; color:transparent;">WE PERFECT THEM.</span>
+        </h2>
+    </div>
+</section>
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     5. DYNAMIC SERVICES SECTION — 5 DISTINCT IMAGES
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">UNRIVALED PROTECTION & RESTORATION</span>
+            <h2 class="section-title">OUR DETAILING SERVICES</h2>
+            <p class="section-desc">Every vehicle receives dedicated craftsmanship inside our DHA Lahore studio. All services completed in 1–2 days.</p>
+        </div>
+
+        <div class="grid-3">
+            {% for service in services %}
+            <div class="glass-card service-card">
+                <img src="{{ url_for('static', filename=service.image) if service.image else url_for('static', filename='uploads/services/ceramic_coating.png') }}"
+                     alt="{{ service.name }}"
+                     class="service-card-img"
+                     style="height:220px; object-fit:cover;">
+                <div class="service-card-body">
+                    <h3 class="service-card-title">{{ service.name }}</h3>
+                    <p class="service-card-desc">{{ service.description }}</p>
+
+                    <div class="service-card-meta">
+                        <div class="service-price">{{ service.price or 'Contact for Quote' }}</div>
+                        <div class="service-duration"><i class="fa-regular fa-clock"></i> {{ service.duration or '1 - 2 Days' }}</div>
+                    </div>
+
+                    <div style="display:flex; gap:10px;">
+                        <a href="{{ url_for('booking.book', service_id=service.id) }}" class="btn-primary" style="flex:1; padding:10px; font-size:0.8rem;">
+                            <i class="fa-solid fa-calendar-check"></i> REQUEST QUOTE
+                        </a>
+                        <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}?text=Hi%20AutozCraveStudio!%20I'm%20inquiring%20about%20{{ service.name }}."
+                           target="_blank" rel="noopener" class="btn-primary"
+                           style="background:#25d366; border:none; padding:10px; font-size:0.8rem;">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     6. INSTAGRAM BEFORE & AFTER PAGE BANNER
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" style="background:linear-gradient(135deg, rgba(225,48,108,0.15) 0%, rgba(10,11,14,0.95) 100%), url('{{ url_for('static', filename='images/studio_bmw.jpg') }}') center/cover no-repeat; text-align:center; border-y:1px solid var(--border-color);">
+    <div class="container" style="max-width:800px;">
+        <i class="fa-brands fa-instagram" style="font-size:4rem; color:#ffffff; margin-bottom:16px;"></i>
+        <h2 style="font-size:2.8rem; text-transform:uppercase; margin-bottom:16px; font-weight:800; color:#fff;">
+            INSTAGRAM WORK & TRANSFORMATIONS
+        </h2>
+        <p style="font-size:1.1rem; color:var(--text-muted); margin-bottom:32px;">
+            Watch daily video walkarounds, swirl removal reels, 9H/10H ceramic hydrophobic water bead clips, and client handovers on <strong>@autozcravestudio</strong>.
+        </p>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+            <a href="{{ url_for('main.instagram_work') }}" class="btn-primary" style="background:#ffffff; color:#000000; font-weight:800; border:none; padding:16px 32px;">
+                <i class="fa-brands fa-instagram" style="color:#e1306c; font-size:1.2rem;"></i> INSTAGRAM WORK PAGE
+            </a>
+            <a href="https://instagram.com/autozcravestudio" target="_blank" rel="noopener" class="btn-outline" style="border-color:#ffffff; color:#ffffff;">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> OPEN @AUTOZCRAVESTUDIO
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     7. FIND YOUR PROTECTION QUIZ — ENHANCED INTERACTIVE WIZARD
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="protection-quiz-section">
+    <div class="container" style="max-width:800px;">
+        <div class="section-header">
+            <span class="section-tag">TAILORED RECOMMENDATION</span>
+            <h2 class="section-title">FIND YOUR PROTECTION QUIZ</h2>
+            <p class="section-desc">Select your vehicle category and preferences to receive a custom package recommendation with price estimate.</p>
+        </div>
+
+        <div class="glass-panel" style="padding:40px;" id="protection-quiz-container">
+            <!-- Progress Bar & Step Tracker -->
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <span id="quiz-step-indicator" style="font-size:0.85rem; font-weight:700; color:var(--red-z); text-transform:uppercase; letter-spacing:1px;">Question 1 of 4</span>
+                <span style="font-size:0.8rem; color:var(--text-muted);">Quick 30-sec match</span>
+            </div>
+            <div style="width:100%; height:6px; background:rgba(255,255,255,0.08); border-radius:50px; margin-bottom:30px; overflow:hidden;">
+                <div id="quiz-progress-bar" style="width:25%; height:100%; background:var(--red-gradient); transition:width 0.3s ease;"></div>
+            </div>
+
+            <!-- Step 1 — Vehicle Body Types -->
+            <div class="quiz-step" data-step="1">
+                <h3 style="font-size:1.3rem; margin-bottom:20px;">1. Select your vehicle category:</h3>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                    <div class="quiz-option" data-value="hatchback">
+                        <i class="fa-solid fa-car" style="color:var(--red-z); margin-bottom:6px; font-size:1.3rem;"></i><br>
+                        <strong>Hatchback</strong><br>
+                        <span style="font-size:0.82rem; color:var(--text-muted);">3 or 5-door compact</span><br>
+                        <span style="font-size:0.82rem; color:var(--red-z); font-weight:700;">Coating from PKR 8,000 • PPF from PKR 60,000</span>
+                    </div>
+                    <div class="quiz-option" data-value="sedan">
+                        <i class="fa-solid fa-car-side" style="color:var(--red-z); margin-bottom:6px; font-size:1.3rem;"></i><br>
+                        <strong>Compact / Midsize Sedan</strong><br>
+                        <span style="font-size:0.82rem; color:var(--text-muted);">4-door family car</span><br>
+                        <span style="font-size:0.82rem; color:var(--red-z); font-weight:700;">Coating from PKR 12,000 • PPF from PKR 100,000</span>
+                    </div>
+                    <div class="quiz-option" data-value="crossover">
+                        <i class="fa-solid fa-car-tunnel" style="color:var(--red-z); margin-bottom:6px; font-size:1.3rem;"></i><br>
+                        <strong>Crossover</strong><br>
+                        <span style="font-size:0.82rem; color:var(--text-muted);">Compact / Midsize SUV</span><br>
+                        <span style="font-size:0.82rem; color:var(--red-z); font-weight:700;">Coating from PKR 15,000 • PPF from PKR 130,000</span>
+                    </div>
+                    <div class="quiz-option" data-value="suv">
+                        <i class="fa-solid fa-truck-monster" style="color:var(--red-z); margin-bottom:6px; font-size:1.3rem;"></i><br>
+                        <strong>Full-Size SUV</strong><br>
+                        <span style="font-size:0.82rem; color:var(--text-muted);">Large body, higher roof</span><br>
+                        <span style="font-size:0.82rem; color:var(--red-z); font-weight:700;">Coating from PKR 20,000 • PPF from PKR 150,000</span>
+                    </div>
+                    <div class="quiz-option" data-value="coupe">
+                        <i class="fa-solid fa-gauge-high" style="color:var(--red-z); margin-bottom:6px; font-size:1.3rem;"></i><br>
+                        <strong>Sports Coupe / Convertible</strong><br>
+                        <span style="font-size:0.82rem; color:var(--text-muted);">2-door performance car</span><br>
+                        <span style="font-size:0.82rem; color:var(--red-z); font-weight:700;">Coating from PKR 12,000 • PPF from PKR 100,000</span>
+                    </div>
+                    <div class="quiz-option" data-value="supercar">
+                        <i class="fa-solid fa-bolt" style="color:var(--red-z); margin-bottom:6px; font-size:1.3rem;"></i><br>
+                        <strong>Exotic Supercar / Collector</strong><br>
+                        <span style="font-size:0.82rem; color:var(--text-muted);">Rare or high-value vehicle</span><br>
+                        <span style="font-size:0.82rem; color:var(--red-z); font-weight:700;">Coating from PKR 20,000 • PPF from PKR 150,000</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="quiz-step" data-step="2" style="display:none;">
+                <h3 style="font-size:1.3rem; margin-bottom:20px;">2. How often do you drive the vehicle?</h3>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                    <div class="quiz-option" data-value="daily">
+                        <i class="fa-solid fa-road" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
+                        <strong>Daily Commuter</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">High exposure to sun, dust & road grime</span>
+                    </div>
+                    <div class="quiz-option" data-value="weekend">
+                        <i class="fa-solid fa-calendar-day" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
+                        <strong>Weekend Driver</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">Moderate usage, 2–3 days/week</span>
+                    </div>
+                    <div class="quiz-option" data-value="occasional">
+                        <i class="fa-solid fa-warehouse" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
+                        <strong>Occasional / Garage Kept</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">Collector or low-mileage vehicle</span>
+                    </div>
+                    <div class="quiz-option" data-value="track">
+                        <i class="fa-solid fa-flag-checkered" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
+                        <strong>Highway / Track Driver</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">High stone chip & debris risk</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="quiz-step" data-step="3" style="display:none;">
+                <h3 style="font-size:1.3rem; margin-bottom:20px;">3. Where is the vehicle parked?</h3>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                    <div class="quiz-option" data-value="indoors">
+                        <i class="fa-solid fa-building-shield" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
+                        <strong>Indoor Garage</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">Fully protected from UV, rain & dust</span>
+                    </div>
+                    <div class="quiz-option" data-value="covered">
+                        <i class="fa-solid fa-umbrella" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
+                        <strong>Covered Carport</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">Shaded but exposed to outdoor air</span>
+                    </div>
+                    <div class="quiz-option" data-value="outdoors">
+                        <i class="fa-solid fa-cloud-sun" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
+                        <strong>Outdoors Fully Exposed</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">Lahore sun, rain & dust daily</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="quiz-step" data-step="4" style="display:none;">
+                <h3 style="font-size:1.3rem; margin-bottom:20px;">4. Your biggest paint protection priority?</h3>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                    <div class="quiz-option" data-value="chips">
+                        <i class="fa-solid fa-shield-halved" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
+                        <strong>Stone Chips & Deep Scratches</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">Physical impact protection (PPF)</span>
+                    </div>
+                    <div class="quiz-option" data-value="swirls">
+                        <i class="fa-solid fa-wand-magic-sparkles" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
+                        <strong>Swirl Marks & Carwash Damage</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">Eliminate micro-scratches for mirror gloss</span>
+                    </div>
+                    <div class="quiz-option" data-value="water">
+                        <i class="fa-solid fa-droplet" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
+                        <strong>Hard Water Spots & UV Fading</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">Mineral & sun damage defense</span>
+                    </div>
+                    <div class="quiz-option" data-value="shine">
+                        <i class="fa-solid fa-sun" style="color:var(--red-z); margin-bottom:6px; font-size:1.2rem;"></i><br>
+                        <strong>Maximum Gloss & Easy Wash</strong><br>
+                        <span style="font-size:0.8rem; color:var(--text-muted);">Liquid reflection & dirt repellency</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Navigation Controls -->
+            <div id="quiz-nav-controls" style="display:flex; justify-content:space-between; align-items:center; margin-top:30px; padding-top:20px; border-top:1px solid var(--border-color);">
+                <button type="button" id="quiz-prev-btn" class="btn-outline" style="display:none; padding:10px 20px; font-size:0.9rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Previous
+                </button>
+                <div style="flex-grow:1;"></div>
+                <button type="button" id="quiz-next-btn" class="btn-primary" style="padding:10px 24px; font-size:0.9rem;">
+                    Next Question <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Quiz Recommendation Box -->
+            <div id="quiz-result-box" style="display:none; text-align:center; padding:10px 0;">
+                <span class="section-tag" style="background:rgba(255,30,39,0.15); border:1px solid var(--red-z); color:var(--red-z); padding:4px 14px; border-radius:50px; font-size:0.75rem; font-weight:700; letter-spacing:1px; text-transform:uppercase;">RECOMMENDED FOR YOUR VEHICLE</span>
+                <h3 id="rec-title" style="font-size:1.8rem; margin:16px 0 10px 0; color:#ffffff;"></h3>
+                <p id="rec-desc" style="color:var(--text-muted); font-size:0.95rem; max-width:620px; margin:0 auto 20px auto; line-height:1.6;"></p>
+                
+                <div style="background:rgba(10,11,14,0.8); border:1px solid var(--border-color); border-radius:12px; padding:20px; max-width:440px; margin:0 auto 24px auto;">
+                    <span style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">ESTIMATED STARTING PRICE</span>
+                    <div id="rec-price" style="font-family:var(--font-heading); font-size:2rem; font-weight:800; color:var(--red-z); margin-top:4px;"></div>
+                    <p style="font-size:0.75rem; color:var(--text-subtle); margin-top:4px;">*Final price depends on vehicle condition and required paint correction level.</p>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:12px; max-width:400px; margin:0 auto;">
+                    <a id="rec-wa-link" href="#" target="_blank" rel="noopener" class="btn-primary" style="background:#25d366; border:none; box-shadow:0 6px 20px rgba(37,211,102,0.3);">
+                        <i class="fa-brands fa-whatsapp"></i> GET EXACT QUOTE ON WHATSAPP
+                    </a>
+                    <button type="button" id="quiz-restart-btn" class="btn-outline" style="font-size:0.85rem; padding:8px 16px;">
+                        <i class="fa-solid fa-rotate-left"></i> Retake Protection Quiz
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     8. BUILD YOUR PROTECTION PACKAGE (CONFIGURATOR & GOAL BUILDER)
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" id="package-builder-section" style="background:var(--bg-surface); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color);">
+    <div class="container" style="max-width:960px;">
+        <div class="section-header">
+            <span class="section-tag">CUSTOMIZE YOUR SUITE</span>
+            <h2 class="section-title">BUILD YOUR PROTECTION PACKAGE</h2>
+            <p class="section-desc">Select your car type and protection goal to get an instant tailored package estimate.</p>
+        </div>
+
+        <div class="glass-panel" style="padding:36px;" id="package-builder-container">
+
+            <!-- STEP 0: CAR TYPE SELECTOR -->
+            <div style="margin-bottom:28px;">
+                <h4 style="font-size:1.05rem; color:var(--red-z); margin-bottom:12px; border-bottom:1px solid var(--border-color); padding-bottom:8px; display:flex; align-items:center; gap:8px;">
+                    <span style="background:var(--red-z); color:#fff; width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.75rem;">1</span>
+                    SELECT YOUR CAR TYPE
+                </h4>
+                <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px;" id="cfg-car-type-group">
+                    <label id="car-label-hatchback" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; background:rgba(255,30,39,0.12); padding:16px 10px; border-radius:8px; border:2px solid var(--red-z); cursor:pointer; text-align:center; transition:all 0.2s;">
+                        <input type="radio" name="cfg_car" value="hatchback" checked style="display:none;">
+                        <i class="fa-solid fa-car" style="font-size:1.5rem; color:var(--red-z);"></i>
+                        <strong style="font-size:0.9rem;">Hatchback</strong>
+                        <span style="font-size:0.75rem; color:var(--text-muted);">From PKR 8,000</span>
+                    </label>
+                    <label id="car-label-sedan" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; background:rgba(10,11,14,0.6); padding:16px 10px; border-radius:8px; border:1px solid var(--border-color); cursor:pointer; text-align:center; transition:all 0.2s;">
+                        <input type="radio" name="cfg_car" value="sedan" style="display:none;">
+                        <i class="fa-solid fa-car-side" style="font-size:1.5rem; color:var(--text-muted);"></i>
+                        <strong style="font-size:0.9rem;">Sedan</strong>
+                        <span style="font-size:0.75rem; color:var(--text-muted);">From PKR 12,000</span>
+                    </label>
+                    <label id="car-label-crossover" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; background:rgba(10,11,14,0.6); padding:16px 10px; border-radius:8px; border:1px solid var(--border-color); cursor:pointer; text-align:center; transition:all 0.2s;">
+                        <input type="radio" name="cfg_car" value="crossover" style="display:none;">
+                        <i class="fa-solid fa-car-tunnel" style="font-size:1.5rem; color:var(--text-muted);"></i>
+                        <strong style="font-size:0.9rem;">Crossover</strong>
+                        <span style="font-size:0.75rem; color:var(--text-muted);">From PKR 15,000</span>
+                    </label>
+                    <label id="car-label-suv" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; background:rgba(10,11,14,0.6); padding:16px 10px; border-radius:8px; border:1px solid var(--border-color); cursor:pointer; text-align:center; transition:all 0.2s;">
+                        <input type="radio" name="cfg_car" value="suv" style="display:none;">
+                        <i class="fa-solid fa-truck-monster" style="font-size:1.5rem; color:var(--text-muted);"></i>
+                        <strong style="font-size:0.9rem;">Full-Size SUV</strong>
+                        <span style="font-size:0.75rem; color:var(--text-muted);">From PKR 20,000</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- STEP 1: WHAT DO YOU WANT TO DO WITH YOUR CAR? (GOAL PRESETS) -->
+            <div style="margin-bottom:30px;">
+                <h4 style="font-size:1.05rem; color:var(--red-z); margin-bottom:12px; border-bottom:1px solid var(--border-color); padding-bottom:8px; display:flex; align-items:center; gap:8px;">
+                    <span style="background:var(--red-z); color:#fff; width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.75rem;">2</span>
+                    WHAT DO YOU WANT TO DO WITH YOUR CAR? (CHOOSE A PACKAGE GOAL)
+                </h4>
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;" id="cfg-goal-presets">
+                    
+                    <div class="cfg-goal-card selected" data-goal="gloss_suite" style="background:rgba(255,30,39,0.1); border:1.5px solid var(--red-z); padding:16px; border-radius:8px; cursor:pointer; transition:all 0.2s;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color:var(--red-z); font-size:1.1rem;"></i>
+                            <strong style="font-size:0.95rem; color:#fff;">Signature Gloss Suite</strong>
+                        </div>
+                        <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4; margin-bottom:10px;">
+                            Ceramic Coating + Glass Coating + Deep Interior Detail
+                        </p>
+                        <span class="cfg-goal-price" style="font-size:0.85rem; font-weight:700; color:var(--red-z);">PKR 22,000</span>
+                    </div>
+
+                    <div class="cfg-goal-card" data-goal="armor_ppf" style="background:rgba(10,11,14,0.6); border:1px solid var(--border-color); padding:16px; border-radius:8px; cursor:pointer; transition:all 0.2s;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                            <i class="fa-solid fa-shield-halved" style="color:var(--red-z); font-size:1.1rem;"></i>
+                            <strong style="font-size:0.95rem; color:#fff;">Full Ultimate PPF Armor</strong>
+                        </div>
+                        <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4; margin-bottom:10px;">
+                            Self-Healing PPF Wrap + Glass Shield + Deep Detail
+                        </p>
+                        <span class="cfg-goal-price" style="font-size:0.85rem; font-weight:700; color:var(--red-z);">PKR 74,000</span>
+                    </div>
+
+                    <div class="cfg-goal-card" data-goal="graphene_suite" style="background:rgba(10,11,14,0.6); border:1px solid var(--border-color); padding:16px; border-radius:8px; cursor:pointer; transition:all 0.2s;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                            <i class="fa-solid fa-bolt" style="color:var(--red-z); font-size:1.1rem;"></i>
+                            <strong style="font-size:0.95rem; color:#fff;">10H Graphene Extreme</strong>
+                        </div>
+                        <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4; margin-bottom:10px;">
+                            10H Graphene Coating + Glass Shield + Deep Detail
+                        </p>
+                        <span class="cfg-goal-price" style="font-size:0.85rem; font-weight:700; color:var(--red-z);">PKR 22,000</span>
+                    </div>
+
+                    <div class="cfg-goal-card" data-goal="paint_only" style="background:rgba(10,11,14,0.6); border:1px solid var(--border-color); padding:16px; border-radius:8px; cursor:pointer; transition:all 0.2s;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                            <i class="fa-solid fa-spray-can-sparkles" style="color:var(--red-z); font-size:1.1rem;"></i>
+                            <strong style="font-size:0.95rem; color:#fff;">Exterior Paint Shield</strong>
+                        </div>
+                        <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4; margin-bottom:10px;">
+                            Ceramic Paint Protection Only (No Add-ons)
+                        </p>
+                        <span class="cfg-goal-price" style="font-size:0.85rem; font-weight:700; color:var(--red-z);">PKR 8,000</span>
+                    </div>
+
+                    <div class="cfg-goal-card" data-goal="detail_glass" style="background:rgba(10,11,14,0.6); border:1px solid var(--border-color); padding:16px; border-radius:8px; cursor:pointer; transition:all 0.2s;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                            <i class="fa-solid fa-soap" style="color:var(--red-z); font-size:1.1rem;"></i>
+                            <strong style="font-size:0.95rem; color:#fff;">Interior & Glass Refresh</strong>
+                        </div>
+                        <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4; margin-bottom:10px;">
+                            Deep Interior Detail + Glass Coating Shield
+                        </p>
+                        <span class="cfg-goal-price" style="font-size:0.85rem; font-weight:700; color:var(--red-z);">PKR 14,000</span>
+                    </div>
+
+                    <div class="cfg-goal-card" data-goal="custom" style="background:rgba(10,11,14,0.6); border:1px solid var(--border-color); padding:16px; border-radius:8px; cursor:pointer; transition:all 0.2s;">
+                        <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                            <i class="fa-solid fa-sliders" style="color:var(--red-z); font-size:1.1rem;"></i>
+                            <strong style="font-size:0.95rem; color:#fff;">Custom Build</strong>
+                        </div>
+                        <p style="font-size:0.8rem; color:var(--text-muted); line-height:1.4; margin-bottom:10px;">
+                            Freely toggle and select any combination below
+                        </p>
+                        <span style="font-size:0.85rem; font-weight:700; color:var(--text-muted);">Mix &amp; Match</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- STEP 2: MODULE CUSTOMIZATION -->
+            <div style="display:grid; grid-template-columns:1.8fr 1.2fr; gap:28px;">
+                <div>
+                    <h4 style="font-size:1.05rem; color:var(--red-z); margin-bottom:12px; border-bottom:1px solid var(--border-color); padding-bottom:8px; display:flex; align-items:center; gap:8px;">
+                        <span style="background:var(--red-z); color:#fff; width:22px; height:22px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:0.75rem;">3</span>
+                        FINE-TUNE INDIVIDUAL MODULES
+                    </h4>
+
+                    <!-- Paint Protection Radio Selection -->
+                    <div style="margin-bottom:20px;">
+                        <span style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase; font-weight:600; display:block; margin-bottom:8px;">A. Paint Protection Module</span>
+                        <div style="display:flex; flex-direction:column; gap:8px;">
+                            <label style="display:flex; justify-content:space-between; align-items:center; background:rgba(10,11,14,0.6); padding:12px 16px; border-radius:6px; border:1px solid var(--border-color); cursor:pointer;">
+                                <div><input type="radio" name="cfg_paint" value="coating" data-name="Ceramic Coating" data-key="coating" checked style="accent-color:var(--red-z);"> <strong style="margin-left:8px; font-size:0.9rem;">Ceramic Coating</strong></div>
+                                <span class="cfg-price-label" data-for="coating" style="color:var(--red-z); font-weight:700; font-size:0.9rem;">PKR 8,000</span>
+                            </label>
+                            <label style="display:flex; justify-content:space-between; align-items:center; background:rgba(10,11,14,0.6); padding:12px 16px; border-radius:6px; border:1px solid var(--border-color); cursor:pointer;">
+                                <div><input type="radio" name="cfg_paint" value="graphene" data-name="10H Graphene Coating" data-key="coating" style="accent-color:var(--red-z);"> <strong style="margin-left:8px; font-size:0.9rem;">10H Graphene Coating</strong></div>
+                                <span class="cfg-price-label" data-for="coating" style="color:var(--red-z); font-weight:700; font-size:0.9rem;">PKR 8,000</span>
+                            </label>
+                            <label style="display:flex; justify-content:space-between; align-items:center; background:rgba(10,11,14,0.6); padding:12px 16px; border-radius:6px; border:1px solid var(--border-color); cursor:pointer;">
+                                <div><input type="radio" name="cfg_paint" value="ppf" data-name="Self-Healing PPF Wrap" data-key="ppf" style="accent-color:var(--red-z);"> <strong style="margin-left:8px; font-size:0.9rem;">Self-Healing PPF Wrap</strong></div>
+                                <span class="cfg-price-label" data-for="ppf" style="color:var(--red-z); font-weight:700; font-size:0.9rem;">PKR 60,000</span>
+                            </label>
+                            <label style="display:flex; justify-content:space-between; align-items:center; background:rgba(10,11,14,0.6); padding:12px 16px; border-radius:6px; border:1px solid var(--border-color); cursor:pointer;">
+                                <div><input type="radio" name="cfg_paint" value="none" data-name="No Paint Treatment" data-key="none" style="accent-color:var(--red-z);"> <strong style="margin-left:8px; font-size:0.9rem; color:var(--text-muted);">No Paint Treatment</strong></div>
+                                <span style="color:var(--text-muted); font-size:0.85rem;">PKR 0</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Glass & Interior Checkboxes -->
+                    <div>
+                        <span style="font-size:0.8rem; color:var(--text-muted); text-transform:uppercase; font-weight:600; display:block; margin-bottom:8px;">B. Glass &amp; Interior Add-ons</span>
+                        <div style="display:flex; flex-direction:column; gap:8px;">
+                            <label style="display:flex; justify-content:space-between; align-items:center; background:rgba(10,11,14,0.6); padding:12px 16px; border-radius:6px; border:1px solid var(--border-color); cursor:pointer;">
+                                <div><input type="checkbox" name="cfg_glass" data-name="Glass Coating Shield" data-key="glass" checked style="accent-color:var(--red-z);"> <strong style="margin-left:8px; font-size:0.9rem;">Glass Coating Shield</strong></div>
+                                <span class="cfg-price-label" data-for="glass" style="color:var(--red-z); font-weight:700; font-size:0.9rem;">+ PKR 8,000</span>
+                            </label>
+                            <label style="display:flex; justify-content:space-between; align-items:center; background:rgba(10,11,14,0.6); padding:12px 16px; border-radius:6px; border:1px solid var(--border-color); cursor:pointer;">
+                                <div><input type="checkbox" name="cfg_interior" data-name="Deep Interior Detail" data-key="detailing" checked style="accent-color:var(--red-z);"> <strong style="margin-left:8px; font-size:0.9rem;">Deep Interior Detail</strong></div>
+                                <span class="cfg-price-label" data-for="detailing" style="color:var(--red-z); font-weight:700; font-size:0.9rem;">+ PKR 6,000</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BUNDLE SUMMARY PANEL -->
+                <div style="background:rgba(10,11,14,0.85); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:24px; display:flex; flex-direction:column; justify-content:space-between;">
+                    <div>
+                        <h4 style="font-size:0.85rem; text-transform:uppercase; color:var(--text-muted); border-bottom:1px solid var(--border-color); padding-bottom:10px; margin-bottom:14px; letter-spacing:0.5px;">YOUR BUNDLE SUMMARY</h4>
+                        <div id="cfg-selected-car-badge" style="background:rgba(255,30,39,0.12); border:1px solid var(--red-z); color:var(--red-z); padding:4px 10px; border-radius:4px; font-size:0.8rem; font-weight:700; display:inline-block; margin-bottom:14px;">HATCHBACK</div>
+                        <ul id="cfg-summary-list" style="margin-bottom:20px; font-size:0.88rem; list-style:none; padding:0;"></ul>
+                    </div>
+                    <div>
+                        <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; display:block;">ESTIMATED STARTING TOTAL</span>
+                        <div id="cfg-total-price" style="font-family:var(--font-heading); font-size:2.2rem; font-weight:800; color:var(--red-z); margin-bottom:6px;">PKR 22,000</div>
+                        <p style="font-size:0.75rem; color:var(--text-muted); margin-bottom:16px; line-height:1.4;">Final price depends on vehicle condition. Contact us on WhatsApp for an exact quote.</p>
+                        <a id="cfg-wa-btn" href="#" target="_blank" rel="noopener" class="btn-primary" style="width:100%; background:#25d366; border:none; box-shadow:0 4px 15px rgba(37,211,102,0.3);">
+                            <i class="fa-brands fa-whatsapp"></i> GET EXACT QUOTE ON WHATSAPP
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     9. SERVICE COMPARISON TABLE
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">COMPARE PROTECTION TYPES</span>
+            <h2 class="section-title">SERVICE COMPARISON</h2>
+        </div>
+        <div class="glass-panel" style="padding:24px; overflow-x:auto;">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>FEATURE</th>
+                        <th>CERAMIC / GRAPHENE / GLASS</th>
+                        <th>PAINT PROTECTION FILM (PPF)</th>
+                        <th>DEEP DETAILING</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Paint Gloss Level</td><td>⭐⭐⭐⭐⭐ (Liquid Mirror)</td><td>⭐⭐⭐⭐ (High Gloss / Satin)</td><td>⭐⭐⭐⭐ (Defect Removal)</td></tr>
+                    <tr><td>Hydrophobicity</td><td>⭐⭐⭐⭐⭐ (110°+ Water Beading)</td><td>⭐⭐⭐⭐ (Hydrophobic TPU)</td><td>⭐⭐⭐ (Wax Sealant)</td></tr>
+                    <tr><td>Physical Scratch / Chip Defense</td><td>⭐⭐⭐ (Chemical Shell)</td><td>⭐⭐⭐⭐⭐ (Self-Healing TPU)</td><td>⭐⭐ (Surface Polish)</td></tr>
+                    <tr><td>Durability Rating</td><td>2–5 Years</td><td>7–10 Years</td><td>6–12 Months</td></tr>
+                    <tr>
+                        <td>Hatchback Price</td>
+                        <td style="color:var(--red-z); font-weight:700;">Starting from PKR 8,000</td>
+                        <td style="color:var(--red-z); font-weight:700;">Starting from PKR 60,000</td>
+                        <td style="color:var(--red-z); font-weight:700;">Starting from PKR 6,000</td>
+                    </tr>
+                    <tr>
+                        <td>Sedan Price</td>
+                        <td style="color:var(--red-z); font-weight:700;">Starting from PKR 12,000</td>
+                        <td style="color:var(--red-z); font-weight:700;">Starting from PKR 100,000</td>
+                        <td style="color:var(--red-z); font-weight:700;">Starting from PKR 8,000</td>
+                    </tr>
+                    <tr>
+                        <td>Crossover Price</td>
+                        <td style="color:var(--red-z); font-weight:700;">Starting from PKR 15,000</td>
+                        <td style="color:var(--red-z); font-weight:700;">Starting from PKR 130,000</td>
+                        <td style="color:var(--red-z); font-weight:700;">Starting from PKR 10,000</td>
+                    </tr>
+                    <tr>
+                        <td>SUV Price</td>
+                        <td style="color:var(--red-z); font-weight:700;">Starting from PKR 20,000</td>
+                        <td style="color:var(--red-z); font-weight:700;">Starting from PKR 150,000</td>
+                        <td style="color:var(--red-z); font-weight:700;">Starting from PKR 13,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     10. LOCATION
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--bg-surface); border-y:1px solid var(--border-color);">
+    <div class="container">
+        <div class="glass-panel" style="padding:40px;">
+            <div class="grid-2" style="align-items:center;">
+                <div>
+                    <span class="section-tag">FLAGSHIP STUDIO LOCATION</span>
+                    <h2 style="font-size:2.2rem; margin-bottom:16px;">VISIT AUTOZCRAVESTUDIO</h2>
+                    <p style="color:var(--text-muted); font-size:1.05rem; margin-bottom:24px;">75B Green Avenue, Near Broadway Commercial, DHA Phase 8, Lahore, Pakistan. Drop in for a free paint inspection — available on Google Maps.</p>
+                    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+                        <div><i class="fa-solid fa-location-dot" style="color:var(--red-z); margin-right:8px;"></i> {{ config.ADDRESS }}</div>
+                        <div><i class="fa-solid fa-phone" style="color:var(--red-z); margin-right:8px;"></i><a href="tel:{{ config.PHONE }}" style="color:#fff;">{{ config.PHONE }}</a></div>
+                        <div><i class="fa-solid fa-clock" style="color:var(--red-z); margin-right:8px;"></i> {{ config.WORKING_HOURS }}</div>
+                    </div>
+                    <a href="https://maps.google.com/?q=Autozcravestudio+75b+green+avenue+near+broadway+commercial+dha+phase+8+Lahore" target="_blank" rel="noopener" class="btn-primary">
+                        <i class="fa-solid fa-diamond-turn-right"></i> VIEW ON GOOGLE MAPS
+                    </a>
+                </div>
+                <div style="background:rgba(10,11,14,0.8); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:30px; text-align:center;">
+                    <i class="fa-solid fa-map-location-dot" style="font-size:4rem; color:var(--red-z); margin-bottom:16px;"></i>
+                    <h3 style="font-size:1.4rem; color:#fff; margin-bottom:8px;">DHA PHASE 8 STUDIO</h3>
+                    <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">Mon – Sat, 10 AM – 8 PM</p>
+                    <a href="https://wa.me/{{ config.WHATSAPP_NUMBER }}" target="_blank" rel="noopener" class="btn-primary" style="background:#25d366; border:none; width:100%;">
+                        <i class="fa-brands fa-whatsapp"></i> BOOK INSPECTION SLOT
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<!-- Cinematic Hero Reveal Script -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const heroSection = document.getElementById('hero-reveal-section');
+    const darkness   = document.getElementById('hero-darkness');
+    const heroCar    = document.getElementById('hero-car-img');
+    const heroText   = document.getElementById('hero-text-content');
+    const scrollHint = document.getElementById('hero-scroll-hint');
+
+    // Step 1: Flash darkness then reveal car with red sweep beam
+    setTimeout(() => {
+        // Trigger reveal class (CSS handles car opacity + filter transition)
+        heroSection.classList.add('revealed');
+
+        // Step 2: Fade out the full black overlay
+        setTimeout(() => {
+            if (darkness) darkness.style.opacity = '0';
+        }, 200);
+
+        // Step 3: Fade in text
+        if (heroText) {
+            heroText.style.opacity = '1';
+            heroText.style.transform = 'translateY(0)';
+        }
+
+        // Step 4: Show scroll hint
+        if (scrollHint) scrollHint.style.opacity = '1';
+
+    }, 400);
+
+    // Scroll parallax — camera pushes toward car on scroll
+    window.addEventListener('scroll', () => {
+        if (!heroCar) return;
+        const scrollY = window.scrollY;
+        const scale = 1 + scrollY * 0.0004;
+        const translateY = scrollY * 0.12;
+        heroCar.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+    }, { passive: true });
+});
+</script>
+
+<!-- Cinematic Before/After Drag Slider Script -->
+<script>
+(function() {
+    const container = document.getElementById('ba-container');
+    const before    = document.getElementById('ba-before');
+    const divider   = document.getElementById('ba-divider');
+    const handle    = document.getElementById('ba-handle');
+    if (!container || !before || !divider) return;
+
+    let isDragging = false;
+    let currentPct = 0.5;
+    let targetPct  = 0.5;
+    let animationFrame = null;
+
+    function applyPct(pct) {
+        pct = Math.max(0.01, Math.min(0.99, pct));
+        const insetRight = (1 - pct) * 100;
+        const leftPercent = pct * 100;
+
+        before.style.clipPath = `inset(0 ${insetRight}% 0 0)`;
+        divider.style.left    = `${leftPercent}%`;
+    }
+
+    function render() {
+        // Smooth lerp when moving towards target
+        currentPct += (targetPct - currentPct) * 0.4;
+        if (Math.abs(targetPct - currentPct) < 0.001) {
+            currentPct = targetPct;
+        }
+        applyPct(currentPct);
+
+        if (currentPct !== targetPct) {
+            animationFrame = requestAnimationFrame(render);
+        } else {
+            animationFrame = null;
+        }
+    }
+
+    function onPointerMove(e) {
+        if (!isDragging && e.type !== 'pointerdown') return;
+        const rect = container.getBoundingClientRect();
+        targetPct = (e.clientX - rect.left) / rect.width;
+        targetPct = Math.max(0.01, Math.min(0.99, targetPct));
+
+        if (!animationFrame) {
+            animationFrame = requestAnimationFrame(render);
+        }
+    }
+
+    function onPointerDown(e) {
+        isDragging = true;
+        container.setPointerCapture(e.pointerId);
+        if (handle) handle.style.transform = 'translate(-50%, -50%) scale(1.15)';
+        onPointerMove(e);
+    }
+
+    function onPointerUp(e) {
+        if (isDragging) {
+            isDragging = false;
+            try { container.releasePointerCapture(e.pointerId); } catch(err){}
+            if (handle) handle.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+    }
+
+    container.addEventListener('pointerdown', onPointerDown);
+    container.addEventListener('pointermove', onPointerMove);
+    container.addEventListener('pointerup',   onPointerUp);
+    container.addEventListener('pointercancel', onPointerUp);
+
+    // Initial render
+    applyPct(0.5);
+})();
+</script>
+
+<script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+<script src="{{ url_for('static', filename='js/configurator.js') }}"></script>
+{% endblock %}

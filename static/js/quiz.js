@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 estPrice = "Starting from PKR 100,000";
             } else {
                 recTitle = "Ceramic / Graphene / Glass Coating (Sedan / Coupe)";
-                recDesc  = "Full multi-stage paint correction followed by 9H/10H ceramic coating for mirror reflection, hydrophobic water-beading, and UV defense.";
+                recDesc  = "Full multi-stage paint correction followed by premium ceramic coating for mirror reflection, hydrophobic water-beading, and UV defense.";
                 estPrice = "Starting from PKR 12,000";
             }
         } else if (vehicle === 'crossover') {
@@ -157,8 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 estPrice = "Starting from PKR 20,000";
             }
         } else if (vehicle === 'supercar') {
-            recTitle = "Full-Body PPF Armor + 10H Graphene Coating";
-            recDesc  = "Exotics and high-value performance cars require zero compromise. Self-healing TPU PPF shields every inch, topped with 10H Graphene for maximum thermal resistance and gloss.";
+            recTitle = "Full-Body PPF Armor + Graphene Nano-Coating";
+            recDesc  = "Exotics and high-value performance cars require zero compromise. Self-healing TPU PPF shields every inch, topped with Graphene Nano-Shield for maximum thermal resistance and gloss.";
             estPrice = "Starting from PKR 150,000+";
         }
 

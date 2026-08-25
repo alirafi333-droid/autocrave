@@ -113,9 +113,9 @@ def run_seed():
         # Gallery placeholders
         create_placeholder_image(os.path.join(uploads_dir, 'gallery', 'porsche_ppf.png'), "Porsche 911 GT3 - Full PPF", "Category: PPF")
         create_placeholder_image(os.path.join(uploads_dir, 'gallery', 'audi_ceramic.png'), "Audi RS6 - 9H Ceramic", "Category: Ceramic Coating")
-        create_placeholder_image(os.path.join(uploads_dir, 'gallery', 'bmw_graphene.png'), "BMW M5 - 10H Graphene", "Category: Graphene Coating")
-        create_placeholder_image(os.path.join(uploads_dir, 'gallery', 'mercedes_glass.png'), "Mercedes G63 - Glass Shield", "Category: Glass Coating")
-        create_placeholder_image(os.path.join(uploads_dir, 'gallery', 'range_detailing.png'), "Range Rover SVR - Deep Detail", "Category: Deep Detailing")
+        create_placeholder_image(os.path.join(uploads_dir, 'gallery', 'bmw_graphene.png'), "BMW M5 - Graphene Nano-Shield", "Category: Graphene Coating")
+        create_placeholder_image(os.path.join(uploads_dir, 'gallery', 'gwagon_glass.png'), "Mercedes G63 - Glass Armor", "Category: Glass Coating")
+        create_placeholder_image(os.path.join(uploads_dir, 'gallery', 'c63_detail.png'), "AMG C63 - Concours Detail", "Category: Deep Detailing")
 
         # Before & After placeholders
         create_placeholder_image(os.path.join(uploads_dir, 'before_after', 'paint_before.png'), "BEFORE: Heavy Swirls & Oxidation", "Paint Condition Prior to Treatment", bg_color=(25, 20, 20), accent_color=(150, 40, 40))
@@ -152,7 +152,7 @@ def run_seed():
         )
         s3 = Service(
             name="Graphene Coating",
-            description="Next-generation 10H Graphene Matrix coating offering unparalleled heat dissipation, enhanced water-spotting prevention, and extreme durability up to 5 years. Starting from PKR 8,000 (Hatchback), PKR 12,000 (Sedan), PKR 15,000 (Crossover), PKR 20,000 (SUV).",
+            description="Next-generation Graphene Nano-Matrix coating offering unparalleled heat dissipation, enhanced water-spotting prevention, and extreme durability up to 5 years. Starting from PKR 8,000 (Hatchback), PKR 12,000 (Sedan), PKR 15,000 (Crossover), PKR 20,000 (SUV).",
             price="Starting from PKR 8,000",
             duration="1 - 2 Days",
             image="uploads/services/graphene_coating.png",
@@ -191,7 +191,7 @@ def run_seed():
             image_path="uploads/gallery/audi_ceramic.png"
         )
         g3 = GalleryItem(
-            title="BMW M5 Competition 10H Graphene Armor",
+            title="BMW M5 Competition Graphene Armor",
             category="Graphene Coating",
             description="Ultra high heat dissipation graphene coating applied onto Frozen Black exterior finish.",
             image_path="uploads/gallery/bmw_graphene.png"

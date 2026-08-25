@@ -12,6 +12,24 @@ def create_app(config_class=Config):
     # Initialize extensions
     db.init_app(app)
 
+    # SQLite WAL mode and busy timeout listener for concurrency resilience
+    with app.app_context():
+        try:
+            from sqlalchemy import event
+            from sqlalchemy.engine import Engine
+            import sqlite3
+
+            @event.listens_for(Engine, 'connect')
+            def set_sqlite_pragma(dbapi_connection, connection_record):
+                if isinstance(dbapi_connection, sqlite3.Connection):
+                    cursor = dbapi_connection.cursor()
+                    cursor.execute("PRAGMA journal_mode=WAL")
+                    cursor.execute("PRAGMA synchronous=NORMAL")
+                    cursor.execute("PRAGMA busy_timeout=30000")
+                    cursor.close()
+        except Exception:
+            pass
+
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.login_message_category = 'error'

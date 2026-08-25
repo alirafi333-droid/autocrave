@@ -12,6 +12,13 @@ class Config:
     DATABASE_PATH = os.path.join(DATABASE_DIR, 'autozcrave.db')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or f'sqlite:///{DATABASE_PATH}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'connect_args': {
+            'timeout': 30,
+            'check_same_thread': False
+        } if not os.environ.get('DATABASE_URL') else {},
+        'pool_pre_ping': True,
+    }
     
     # Upload Settings
     UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')

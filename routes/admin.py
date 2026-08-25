@@ -123,7 +123,11 @@ def bookings():
 @admin_bp.route('/bookings/<int:booking_id>/status', methods=['GET', 'POST'])
 @admin_required
 def update_booking_status(booking_id):
-    booking = Booking.query.get_or_404(booking_id)
+    booking = db.session.get(Booking, booking_id)
+    if not booking:
+        flash('Booking not found or already updated.', 'info')
+        return redirect(url_for('admin.bookings'))
+
     if request.method == 'POST':
         new_status = request.form.get('status', '').strip()
         if new_status in ['Pending', 'Confirmed', 'Completed', 'Cancelled']:
@@ -133,6 +137,7 @@ def update_booking_status(booking_id):
                 flash(f'Booking #{booking.reference_code} status updated to {new_status}.', 'success')
             except Exception as e:
                 db.session.rollback()
+                current_app.logger.error(f"Error updating booking status: {e}")
                 flash('An error occurred while updating the booking status.', 'error')
         else:
             flash('Invalid status supplied.', 'error')
@@ -141,14 +146,20 @@ def update_booking_status(booking_id):
 @admin_bp.route('/bookings/<int:booking_id>/delete', methods=['GET', 'POST'])
 @admin_required
 def delete_booking(booking_id):
-    booking = Booking.query.get_or_404(booking_id)
+    booking = db.session.get(Booking, booking_id)
+    if not booking:
+        flash('Booking not found or already deleted.', 'info')
+        return redirect(url_for('admin.bookings'))
+
     if request.method == 'POST':
         try:
+            ref = booking.reference_code
             db.session.delete(booking)
             db.session.commit()
-            flash(f'Booking #{booking.reference_code} deleted.', 'info')
+            flash(f'Booking #{ref} deleted successfully.', 'info')
         except Exception as e:
             db.session.rollback()
+            current_app.logger.error(f"Error deleting booking: {e}")
             flash('An error occurred while deleting the booking.', 'error')
     return redirect(url_for('admin.bookings'))
 

@@ -5,8 +5,14 @@ from models import db
 from models.user import User
 from flask_login import LoginManager
 
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
 def create_app(config_class=Config):
-    app = Flask(__name__)
+    app = Flask(
+        __name__,
+        static_folder=os.path.join(BASE_DIR, 'static'),
+        template_folder=os.path.join(BASE_DIR, 'templates')
+    )
     app.config.from_object(config_class)
 
     # Initialize extensions

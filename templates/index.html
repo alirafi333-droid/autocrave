@@ -772,9 +772,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function render() {
-        // Smooth lerp when moving towards target
-        currentPct += (targetPct - currentPct) * 0.4;
-        if (Math.abs(targetPct - currentPct) < 0.001) {
+        // Smooth transformation interpolation
+        currentPct += (targetPct - currentPct) * 0.55;
+        if (Math.abs(targetPct - currentPct) < 0.0005) {
             currentPct = targetPct;
         }
         applyPct(currentPct);
@@ -786,10 +786,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function onPointerMove(e) {
-        if (!isDragging && e.type !== 'pointerdown') return;
+    function updatePosition(clientX) {
         const rect = container.getBoundingClientRect();
-        targetPct = (e.clientX - rect.left) / rect.width;
+        targetPct = (clientX - rect.left) / rect.width;
         targetPct = Math.max(0.01, Math.min(0.99, targetPct));
 
         if (!animationFrame) {
@@ -797,10 +796,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function onPointerMove(e) {
+        if (!isDragging && e.type !== 'pointerdown') return;
+        updatePosition(e.clientX);
+    }
+
     function onPointerDown(e) {
         isDragging = true;
-        container.setPointerCapture(e.pointerId);
-        if (handle) handle.style.transform = 'translate(-50%, -50%) scale(1.15)';
+        try { container.setPointerCapture(e.pointerId); } catch(err){}
+        if (handle) handle.style.transform = 'translate(-50%, -50%) scale(1.12)';
         onPointerMove(e);
     }
 
@@ -812,10 +816,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    container.addEventListener('pointerdown', onPointerDown);
-    container.addEventListener('pointermove', onPointerMove);
-    container.addEventListener('pointerup',   onPointerUp);
-    container.addEventListener('pointercancel', onPointerUp);
+    container.addEventListener('pointerdown', onPointerDown, { passive: true });
+    container.addEventListener('pointermove', onPointerMove, { passive: true });
+    container.addEventListener('pointerup',   onPointerUp,   { passive: true });
+    container.addEventListener('pointercancel', onPointerUp, { passive: true });
 
     // Initial render
     applyPct(0.5);

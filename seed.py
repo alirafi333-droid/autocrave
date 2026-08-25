@@ -99,12 +99,12 @@ def run_seed():
         if user_up and os.path.exists(os.path.join(user_up, 'media_1787387121600.png')):
             shutil.copy(os.path.join(user_up, 'media_1787387121600.png'), os.path.join(uploads_dir, 'services', 'deep_detailing.png'))
 
-        # 8. Before & After BMW Transformation Photos
-        if user_up and os.path.exists(os.path.join(user_up, 'media_1787389934522.jpg')):
+        # 8. Before & After BMW Transformation Photos (Preserve sub-pixel aligned versions)
+        if not os.path.exists(os.path.join(static_img_dir, 'before_bmw.jpg')) and user_up and os.path.exists(os.path.join(user_up, 'media_1787389934522.jpg')):
             shutil.copy(os.path.join(user_up, 'media_1787389934522.jpg'), os.path.join(static_img_dir, 'before_bmw.jpg'))
             shutil.copy(os.path.join(user_up, 'media_1787389934522.jpg'), os.path.join(uploads_dir, 'before_after', 'paint_before.png'))
 
-        if user_up and os.path.exists(os.path.join(user_up, 'media_1787389948184.jpg')):
+        if not os.path.exists(os.path.join(static_img_dir, 'after_bmw.jpg')) and user_up and os.path.exists(os.path.join(user_up, 'media_1787389948184.jpg')):
             shutil.copy(os.path.join(user_up, 'media_1787389948184.jpg'), os.path.join(static_img_dir, 'after_bmw.jpg'))
             shutil.copy(os.path.join(user_up, 'media_1787389948184.jpg'), os.path.join(uploads_dir, 'before_after', 'paint_after.png'))
 

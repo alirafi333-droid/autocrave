@@ -946,7 +946,7 @@ img {
 .ba-slider-container {
     position: relative;
     width: 100%;
-    aspect-ratio: 720 / 639;
+    aspect-ratio: 700 / 619;
     max-height: 640px;
     border-radius: var(--radius-md);
     overflow: hidden;
@@ -1004,8 +1004,7 @@ img {
 /* ── Phone overrides ── */
 @media (max-width: 640px) {
     .ba-slider-container {
-        aspect-ratio: 4 / 3;
-        max-height: 280px;
+        aspect-ratio: 700 / 619;
         border-radius: 8px;
     }
     /* Labels: smaller, closer to edges */

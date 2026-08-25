@@ -264,13 +264,21 @@ def gallery():
     categories = ['Ceramic Coating', 'Glass Coating', 'Graphene Coating', 'PPF', 'Deep Detailing', 'General']
     return render_template('admin/gallery.html', items=items, categories=categories)
 
-@admin_bp.route('/gallery/<int:item_id>/delete', methods=['POST'])
+@admin_bp.route('/gallery/<int:item_id>/delete', methods=['GET', 'POST'])
 @admin_required
 def delete_gallery_item(item_id):
-    item = GalleryItem.query.get_or_404(item_id)
-    db.session.delete(item)
-    db.session.commit()
-    flash('Gallery item removed.', 'info')
+    item = db.session.get(GalleryItem, item_id)
+    if not item:
+        flash('Gallery item not found or already deleted.', 'info')
+        return redirect(url_for('admin.gallery'))
+
+    try:
+        db.session.delete(item)
+        db.session.commit()
+        flash('Gallery item removed.', 'info')
+    except Exception as e:
+        db.session.rollback()
+        flash('An error occurred while deleting gallery item.', 'error')
     return redirect(url_for('admin.gallery'))
 
 # --- BEFORE & AFTER MANAGEMENT ---
@@ -291,29 +299,41 @@ def before_after():
         if not title or not before_path or not after_path:
             flash('Project Title, BEFORE Image, and AFTER Image are required.', 'error')
         else:
-            ba_item = BeforeAfterItem(
-                title=title,
-                service_category=service_category,
-                description=description,
-                before_image=before_path,
-                after_image=after_path
-            )
-            db.session.add(ba_item)
-            db.session.commit()
-            flash('Before & After project created successfully.', 'success')
-            return redirect(url_for('admin.before_after'))
+            try:
+                ba_item = BeforeAfterItem(
+                    title=title,
+                    service_category=service_category,
+                    description=description,
+                    before_image=before_path,
+                    after_image=after_path
+                )
+                db.session.add(ba_item)
+                db.session.commit()
+                flash('Before & After project created successfully.', 'success')
+                return redirect(url_for('admin.before_after'))
+            except Exception as e:
+                db.session.rollback()
+                flash('An error occurred while creating project.', 'error')
 
     projects = BeforeAfterItem.query.order_by(BeforeAfterItem.created_at.desc()).all()
     categories = ['Ceramic Coating', 'Glass Coating', 'Graphene Coating', 'PPF', 'Deep Detailing', 'General']
     return render_template('admin/before_after.html', projects=projects, categories=categories)
 
-@admin_bp.route('/before-after/<int:project_id>/delete', methods=['POST'])
+@admin_bp.route('/before-after/<int:project_id>/delete', methods=['GET', 'POST'])
 @admin_required
 def delete_before_after(project_id):
-    project = BeforeAfterItem.query.get_or_404(project_id)
-    db.session.delete(project)
-    db.session.commit()
-    flash('Before & After project deleted.', 'info')
+    project = db.session.get(BeforeAfterItem, project_id)
+    if not project:
+        flash('Comparison project not found or already deleted.', 'info')
+        return redirect(url_for('admin.before_after'))
+
+    try:
+        db.session.delete(project)
+        db.session.commit()
+        flash('Before & After project deleted.', 'info')
+    except Exception as e:
+        db.session.rollback()
+        flash('An error occurred while deleting project.', 'error')
     return redirect(url_for('admin.before_after'))
 
 # --- CONTACT MESSAGES INBOX ---
@@ -323,20 +343,37 @@ def messages():
     messages_list = ContactMessage.query.order_by(ContactMessage.created_at.desc()).all()
     return render_template('admin/messages.html', messages=messages_list)
 
-@admin_bp.route('/messages/<int:msg_id>/toggle-read', methods=['POST'])
+@admin_bp.route('/messages/<int:msg_id>/toggle-read', methods=['GET', 'POST'])
 @admin_required
 def toggle_message_read(msg_id):
-    msg = ContactMessage.query.get_or_404(msg_id)
-    msg.status = 'Read' if msg.status == 'Unread' else 'Unread'
-    db.session.commit()
-    flash(f'Message status set to {msg.status}.', 'info')
+    msg = db.session.get(ContactMessage, msg_id)
+    if not msg:
+        flash('Message not found.', 'info')
+        return redirect(url_for('admin.messages'))
+
+    try:
+        msg.status = 'Read' if msg.status == 'Unread' else 'Unread'
+        db.session.commit()
+        flash(f'Message status set to {msg.status}.', 'info')
+    except Exception as e:
+        db.session.rollback()
+        flash('An error occurred while updating message status.', 'error')
     return redirect(url_for('admin.messages'))
 
-@admin_bp.route('/messages/<int:msg_id>/delete', methods=['POST'])
+@admin_bp.route('/messages/<int:msg_id>/delete', methods=['GET', 'POST'])
 @admin_required
 def delete_message(msg_id):
-    msg = ContactMessage.query.get_or_404(msg_id)
-    db.session.delete(msg)
-    db.session.commit()
-    flash('Contact message deleted.', 'info')
+    msg = db.session.get(ContactMessage, msg_id)
+    if not msg:
+        flash('Message not found or already deleted.', 'info')
+        return redirect(url_for('admin.messages'))
+
+    try:
+        db.session.delete(msg)
+        db.session.commit()
+        flash('Contact message deleted successfully.', 'info')
+    except Exception as e:
+        db.session.rollback()
+        current_app.logger.error(f"Error deleting message: {e}")
+        flash('An error occurred while deleting the message.', 'error')
     return redirect(url_for('admin.messages'))

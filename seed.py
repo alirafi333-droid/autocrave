@@ -227,44 +227,7 @@ def run_seed():
         )
         db.session.add_all([ba1, ba2])
 
-        print("Seeding Sample Bookings & Messages...")
-        b1 = Booking(
-            customer_name="Zayn Malik",
-            customer_email="zayn@example.com",
-            customer_phone="+923009876543",
-            vehicle_make="Audi",
-            vehicle_model="e-Tron GT",
-            vehicle_year="2024",
-            service_id=s1.id,
-            preferred_date="2026-08-25",
-            preferred_time="10:00 AM",
-            additional_notes="Interested in dual coat ceramic and leather protection.",
-            status="Pending"
-        )
-        b2 = Booking(
-            customer_name="Hamza Khan",
-            customer_email="hamza@example.com",
-            customer_phone="+923214567890",
-            vehicle_make="Porsche",
-            vehicle_model="Taycan Turbo S",
-            vehicle_year="2025",
-            service_id=s4.id,
-            preferred_date="2026-08-28",
-            preferred_time="02:00 PM",
-            additional_notes="Full front bumper and bonnet PPF package required.",
-            status="Confirmed"
-        )
-        db.session.add_all([b1, b2])
-
-        m1 = ContactMessage(
-            name="Ali Hassan",
-            email="ali.hassan@example.pk",
-            phone="+923331122334",
-            subject="PPF Package for Mercedes S-Class in DHA Lahore",
-            message="Hi AutozCraveStudio team, I want to inquire about full body TPU PPF for my new Mercedes S-Class. Please share price options and booking slots."
-        )
-        db.session.add(m1)
-
+        print("Seeding completed successfully without sample customer bookings or messages.")
         db.session.commit()
         print("Database initialized and successfully seeded!")
 

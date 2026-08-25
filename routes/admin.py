@@ -120,26 +120,36 @@ def bookings():
                            service_filter=service_filter,
                            date_filter=date_filter)
 
-@admin_bp.route('/bookings/<int:booking_id>/status', methods=['POST'])
+@admin_bp.route('/bookings/<int:booking_id>/status', methods=['GET', 'POST'])
 @admin_required
 def update_booking_status(booking_id):
     booking = Booking.query.get_or_404(booking_id)
-    new_status = request.form.get('status')
-    if new_status in ['Pending', 'Confirmed', 'Completed', 'Cancelled']:
-        booking.status = new_status
-        db.session.commit()
-        flash(f'Booking #{booking.reference_code} status updated to {new_status}.', 'success')
-    else:
-        flash('Invalid status supplied.', 'error')
-    return redirect(request.referrer or url_for('admin.bookings'))
+    if request.method == 'POST':
+        new_status = request.form.get('status', '').strip()
+        if new_status in ['Pending', 'Confirmed', 'Completed', 'Cancelled']:
+            try:
+                booking.status = new_status
+                db.session.commit()
+                flash(f'Booking #{booking.reference_code} status updated to {new_status}.', 'success')
+            except Exception as e:
+                db.session.rollback()
+                flash('An error occurred while updating the booking status.', 'error')
+        else:
+            flash('Invalid status supplied.', 'error')
+    return redirect(url_for('admin.bookings'))
 
-@admin_bp.route('/bookings/<int:booking_id>/delete', methods=['POST'])
+@admin_bp.route('/bookings/<int:booking_id>/delete', methods=['GET', 'POST'])
 @admin_required
 def delete_booking(booking_id):
     booking = Booking.query.get_or_404(booking_id)
-    db.session.delete(booking)
-    db.session.commit()
-    flash(f'Booking #{booking.reference_code} deleted.', 'info')
+    if request.method == 'POST':
+        try:
+            db.session.delete(booking)
+            db.session.commit()
+            flash(f'Booking #{booking.reference_code} deleted.', 'info')
+        except Exception as e:
+            db.session.rollback()
+            flash('An error occurred while deleting the booking.', 'error')
     return redirect(url_for('admin.bookings'))
 
 # --- SERVICE MANAGEMENT ---

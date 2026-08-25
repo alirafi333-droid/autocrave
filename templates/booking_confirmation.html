@@ -44,7 +44,7 @@
 
                     <div>
                         <span style="color: var(--text-subtle); display: block; font-size: 0.8rem; text-transform: uppercase;">Selected Service</span>
-                        <strong style="color: var(--red-z);">{{ booking.service.name }}</strong>
+                        <strong style="color: var(--red-z);">{{ booking.service.name if booking.service else 'Detailing Service' }}</strong>
                     </div>
                     <div>
                         <span style="color: var(--text-subtle); display: block; font-size: 0.8rem; text-transform: uppercase;">Vehicle</span>

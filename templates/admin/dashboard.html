@@ -78,7 +78,7 @@
                         <span style="font-size:0.8rem; color:var(--admin-muted);">{{ b.customer_phone }}</span>
                     </td>
                     <td>{{ b.vehicle_year }} {{ b.vehicle_make }} {{ b.vehicle_model }}</td>
-                    <td>{{ b.service.name }}</td>
+                    <td>{{ b.service.name if b.service else 'Service (Archived)' }}</td>
                     <td>{{ b.preferred_date }} at {{ b.preferred_time }}</td>
                     <td>
                         <span class="badge badge-{{ b.status.lower() }}">{{ b.status }}</span>

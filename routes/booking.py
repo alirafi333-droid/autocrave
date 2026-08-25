@@ -29,24 +29,28 @@ def book():
             flash('Selected service is invalid or unavailable.', 'error')
             return redirect(url_for('booking.book'))
 
-        new_booking = Booking(
-            customer_name=customer_name,
-            customer_email=customer_email,
-            customer_phone=customer_phone,
-            vehicle_make=vehicle_make,
-            vehicle_model=vehicle_model,
-            vehicle_year=vehicle_year,
-            service_id=service.id,
-            preferred_date=preferred_date,
-            preferred_time=preferred_time,
-            additional_notes=additional_notes,
-            status='Pending'
-        )
+        try:
+            new_booking = Booking(
+                customer_name=customer_name,
+                customer_email=customer_email,
+                customer_phone=customer_phone,
+                vehicle_make=vehicle_make,
+                vehicle_model=vehicle_model,
+                vehicle_year=vehicle_year,
+                service_id=service.id,
+                preferred_date=preferred_date,
+                preferred_time=preferred_time,
+                additional_notes=additional_notes,
+                status='Pending'
+            )
 
-        db.session.add(new_booking)
-        db.session.commit()
-
-        return redirect(url_for('booking.confirmation', reference_code=new_booking.reference_code))
+            db.session.add(new_booking)
+            db.session.commit()
+            return redirect(url_for('booking.confirmation', reference_code=new_booking.reference_code))
+        except Exception as e:
+            db.session.rollback()
+            flash('A server error occurred while processing your booking. Please try again.', 'error')
+            return redirect(url_for('booking.book', service_id=service_id))
 
     # GET Request
     selected_service_id = request.args.get('service_id', type=int)

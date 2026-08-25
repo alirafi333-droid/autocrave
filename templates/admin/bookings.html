@@ -89,7 +89,7 @@
                     </div>
                     {% endif %}
                 </td>
-                <td>{{ b.service.name }}</td>
+                <td>{{ b.service.name if b.service else 'Service (Archived)' }}</td>
                 <td>
                     <strong style="display:block;">{{ b.preferred_date }}</strong>
                     <span style="font-size: 0.8rem; color: var(--admin-muted);">{{ b.preferred_time }}</span>

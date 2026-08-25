@@ -9,10 +9,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        @media (max-width: 480px) {
+            .admin-login-panel {
+                padding: 28px 18px !important;
+            }
+            .brand-logo-img {
+                height: 48px !important;
+            }
+            .brand-logo {
+                font-size: 1.4rem !important;
+            }
+        }
+    </style>
 </head>
-<body style="background: radial-gradient(circle at 50% 30%, rgba(255, 30, 39, 0.15) 0%, transparent 70%), #0a0b0e; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px;">
+<body style="background: radial-gradient(circle at 50% 30%, rgba(255, 30, 39, 0.15) 0%, transparent 70%), #0a0b0e; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 16px;">
 
-    <div class="glass-panel" style="max-width: 440px; width: 100%; padding: 40px; border-top: 4px solid var(--red-z);">
+    <div class="glass-panel admin-login-panel" style="max-width: 440px; width: 100%; padding: 40px; border-top: 4px solid var(--red-z);">
         
         <div style="text-align: center; margin-bottom: 32px;">
             <a href="{{ url_for('main.index') }}" class="brand-logo" style="font-size: 1.8rem; flex-direction: column; gap: 8px;">

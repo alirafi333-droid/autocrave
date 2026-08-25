@@ -16,9 +16,29 @@
 </head>
 <body class="admin-body">
 
+    <!-- Mobile Topbar -->
+    <header class="admin-mobile-topbar">
+        <button type="button" class="admin-mobile-toggle" id="adminNavToggle" aria-label="Toggle navigation menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <a href="{{ url_for('admin.dashboard') }}" class="brand-logo" style="font-size: 1.1rem; gap: 8px;">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="AutozCraveStudio Logo" class="brand-logo-img" style="height: 30px;">
+            <span>Auto<span class="z-red">Z</span>Crave<span class="studio-gray">Studio</span></span>
+        </a>
+        <a href="{{ url_for('auth.logout') }}" style="color: #ef4444; font-size: 1.1rem; padding: 8px;" title="Logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
+    </header>
+
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div class="admin-sidebar-backdrop" id="adminSidebarBackdrop"></div>
+
     <!-- Admin Sidebar -->
-    <aside class="admin-sidebar">
+    <aside class="admin-sidebar" id="adminSidebar">
         <div class="admin-sidebar-header">
+            <button type="button" class="admin-sidebar-close" id="adminSidebarClose" aria-label="Close menu">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
             <a href="{{ url_for('admin.dashboard') }}" class="brand-logo" style="font-size: 1.25rem;">
                 <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="AutozCraveStudio Logo" class="brand-logo-img" style="height: 36px;">
                 <span>Auto<span class="z-red">Z</span>Crave<span class="studio-gray">Studio</span></span>
@@ -51,10 +71,10 @@
             <div style="font-size: 0.85rem; color: var(--admin-muted); margin-bottom: 12px;">
                 Logged in as: <strong style="color:#fff;">{{ current_user.name }}</strong>
             </div>
-            <a href="{{ url_for('main.index') }}" class="btn-outline" target="_blank" style="width: 100%; padding: 8px 14px; font-size: 0.8rem; margin-bottom: 8px;">
+            <a href="{{ url_for('main.index') }}" class="btn-outline" target="_blank" style="width: 100%; padding: 8px 14px; font-size: 0.8rem; margin-bottom: 8px; text-align: center; justify-content: center;">
                 <i class="fa-solid fa-globe"></i> View Public Site
             </a>
-            <a href="{{ url_for('auth.logout') }}" class="btn-primary" style="width: 100%; padding: 8px 14px; font-size: 0.8rem; background: #dc2626;">
+            <a href="{{ url_for('auth.logout') }}" class="btn-primary" style="width: 100%; padding: 8px 14px; font-size: 0.8rem; background: #dc2626; text-align: center; justify-content: center;">
                 <i class="fa-solid fa-right-from-bracket"></i> Logout
             </a>
         </div>
@@ -76,6 +96,37 @@
         {% block content %}{% endblock %}
     </main>
 
+    <script>
+    (function() {
+        const toggleBtn  = document.getElementById('adminNavToggle');
+        const closeBtn   = document.getElementById('adminSidebarClose');
+        const sidebar    = document.getElementById('adminSidebar');
+        const backdrop   = document.getElementById('adminSidebarBackdrop');
+
+        function openSidebar() {
+            if (sidebar) sidebar.classList.add('open');
+            if (backdrop) backdrop.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            if (sidebar) sidebar.classList.remove('open');
+            if (backdrop) backdrop.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (toggleBtn) toggleBtn.addEventListener('click', openSidebar);
+        if (closeBtn)  closeBtn.addEventListener('click', closeSidebar);
+        if (backdrop)  backdrop.addEventListener('click', closeSidebar);
+
+        // Close on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sidebar && sidebar.classList.contains('open')) {
+                closeSidebar();
+            }
+        });
+    })();
+    </script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>
